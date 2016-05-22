@@ -1,5 +1,6 @@
 package com.snap.thirdear.db;
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
@@ -30,6 +31,7 @@ public class DataBaseHelper extends SQLiteOpenHelper{
     public static final String TABLE_ONE_COL_8 = "BT_RECEIVER";
     //0 means disabled 1 means enabled
     public static final String TABLE_ONE_COL_9 = "WEARABLE_DEVICE";
+    public static final String TABLE_ONE_COL_10 = "ALERT_TEXT";
 
     public static final String TABLE_TWO_NAME = "TRIGGERS";
     public static final String TABLE_TWO_COL_1 = "_ID";
@@ -40,7 +42,6 @@ public class DataBaseHelper extends SQLiteOpenHelper{
 
     public DataBaseHelper(Context context) {
         super(context, DATABASE_NAME, null, VERSION);
-        SQLiteDatabase db = this.getWritableDatabase();
     }
 
     @Override
@@ -58,14 +59,38 @@ public class DataBaseHelper extends SQLiteOpenHelper{
         {
             db.beginTransaction();
 
-            /*for each record in the
-            list
-
-                if (line represent a valid entry)
-                {
-                    db.insert(SOME_TABLE, null, SOME_VALUE);
-                }
-            }*/
+            //first group
+            ContentValues groupOneValues = new ContentValues();
+            groupOneValues.put(TABLE_ONE_COL_2, "alert");
+            groupOneValues.put(TABLE_ONE_COL_3, 1);
+            groupOneValues.put(TABLE_ONE_COL_4, 1);
+            groupOneValues.put(TABLE_ONE_COL_5, 1);
+            groupOneValues.put(TABLE_ONE_COL_6, 1);
+            groupOneValues.put(TABLE_ONE_COL_7, 1);
+            groupOneValues.put(TABLE_ONE_COL_8, 1);
+            groupOneValues.put(TABLE_ONE_COL_9, 1);
+            groupOneValues.put(TABLE_ONE_COL_9, "call for help detected");
+            long firstRowId  = db.insert(TABLE_ONE_NAME,null, groupOneValues);
+            ContentValues triggerOneValues = new ContentValues();
+            triggerOneValues.put(TABLE_ONE_COL_2, firstRowId);
+            triggerOneValues.put(TABLE_ONE_COL_3, "WORDS");
+            triggerOneValues.put(TABLE_ONE_COL_4, "help");
+            //second group
+            ContentValues groupTwoValues = new ContentValues();
+            groupTwoValues.put(TABLE_ONE_COL_2, "alert");
+            groupTwoValues.put(TABLE_ONE_COL_3, 1);
+            groupTwoValues.put(TABLE_ONE_COL_4, 1);
+            groupTwoValues.put(TABLE_ONE_COL_5, 1);
+            groupTwoValues.put(TABLE_ONE_COL_6, 1);
+            groupTwoValues.put(TABLE_ONE_COL_7, 1);
+            groupTwoValues.put(TABLE_ONE_COL_8, 1);
+            groupTwoValues.put(TABLE_ONE_COL_9, 1);
+            groupTwoValues.put(TABLE_ONE_COL_9, "greeting detected");
+            long secondRowId  = db.insert(TABLE_ONE_NAME,null, groupOneValues);
+            ContentValues triggertwoValues = new ContentValues();
+            triggertwoValues.put(TABLE_ONE_COL_2, secondRowId);
+            triggertwoValues.put(TABLE_ONE_COL_3, "WORDS");
+            triggertwoValues.put(TABLE_ONE_COL_4, "hello");
 
             db.setTransactionSuccessful();
         }
@@ -74,7 +99,7 @@ public class DataBaseHelper extends SQLiteOpenHelper{
         {
             db.endTransaction();
         }
-        db.execSQL("INSERT INTO " + TABLE_ONE_NAME + "");
+        //db.execSQL("INSERT INTO " + TABLE_ONE_NAME + "");
         Log.d("DataBaseHelper loadData","done inserting data...");
     }
 
@@ -101,7 +126,9 @@ public class DataBaseHelper extends SQLiteOpenHelper{
         query.append(TABLE_ONE_COL_8);
         query.append(" INTEGER  NOT NULL, ");
         query.append(TABLE_ONE_COL_9);
-        query.append("INTEGER NOT NULL");
+        query.append("INTEGER NOT NULL, ");
+        query.append(TABLE_ONE_COL_10);
+        query.append("TEXT NOT NULL");
         query.append(");");
         return query.toString();
     }

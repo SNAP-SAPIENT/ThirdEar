@@ -3,6 +3,8 @@ package com.snap.thirdear.service;
 import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.media.AudioManager;
 import android.os.Bundle;
 import android.os.Handler;
@@ -15,6 +17,8 @@ import android.speech.tts.TextToSpeech;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.snap.thirdear.db.DataBaseHelper;
+
 import java.util.HashMap;
 import java.util.Locale;
 
@@ -26,6 +30,8 @@ public class BackgroundSpeechRecognizer extends Service implements RecognitionLi
     public static final String NOTIFICATION = "com.ventrific.receiver";
     public boolean triggerWordSpoken = false;
     private BluetoothService bluetoothService;
+    private DataBaseHelper dataBaseHelper;
+    SQLiteDatabase db;
 
     SpeechRecognizer speechRecognizer;
     AudioManager audioManager;
@@ -71,6 +77,8 @@ public class BackgroundSpeechRecognizer extends Service implements RecognitionLi
         if (speechRecognizer != null)
             speechRecognizer.startListening(speechRecognizerIntent);
         bluetoothService = new BluetoothService();
+        dataBaseHelper = new DataBaseHelper(this);
+        db = dataBaseHelper.getReadableDatabase();
 
         return START_STICKY;
     }
@@ -84,6 +92,9 @@ public class BackgroundSpeechRecognizer extends Service implements RecognitionLi
         }
         if (speechRecognizer != null) {
             speechRecognizer.destroy();
+        }
+        if (db != null){
+            db.close();
         }
         super.onDestroy();
     }
@@ -152,45 +163,18 @@ public class BackgroundSpeechRecognizer extends Service implements RecognitionLi
 
             Log.d(getClass().getName(), "results: " + String.valueOf(data.size()));
             String command = null;
-            /*for (int i = 0; i < data.size(); i++)
-            {
-                Log.d(getClass().getName(), "result: " + data.get(i));
-                str += data.get(i);
-                String word = (String)data.get(i);
-                if (triggerWordSpoken) {
-                    if (word.contains("Help")) {
-                        command = "LightOn";
-                        break;
-                    } else if (word.contains("hello")) {
-                        command = "LightOff";
-                        break;
-                    }
-                } else {
-                    if (word.matches("computer")) {
-                        triggerWordSpoken = true;
-                    }
-                }
-            }*/
-
-
-            String text = "First match was "  + data.get(0);
+            String text = "First match was: "  + data.get(0);
             Log.d(getClass().getName(), "TTS: " + text);
 
             String word = (String)data.get(0);
 
-            if(word.contains("hello")){
-                command = "GREETING";
-            }else if(word.contains("fire")){
-                command = "FIRE_ALERT";
-            }else if(word.contains("okay")){
-                command = "OK";
-            }
+            command = checkForKeywords(word);
 
             HashMap<String, String> map = new HashMap<String, String>();
             map.put(TextToSpeech.Engine.KEY_PARAM_UTTERANCE_ID, "UniqueID");
 
             if(command != null && command.equals("GREETING")) {
-               speak("GREETING", map);
+               speak("greeting to you too", map);
                 alertVibrate(1);
                 sendCmdToBluetoohDevices(command);
             }if(command != null && command.equals("FIRE_ALERT")) {
@@ -224,6 +208,20 @@ public class BackgroundSpeechRecognizer extends Service implements RecognitionLi
             speechRecognizer.stopListening();
             speechRecognizer.startListening(speechRecognizerIntent);
         }
+    }
+
+    private String checkForKeywords(String word) {
+        //Cursor c = db.query(DataBaseHelper.TABLE_ONE_NAME, "");
+
+        String command = null;
+        if(word.contains("hello")){
+            command = "GREETING";
+        }else if(word.contains("fire")){
+            command = "FIRE_ALERT";
+        }else if(word.contains("okay")){
+            command = "OK";
+        }
+        return command;
     }
 
     private void sendCmdToBluetoohDevices(String command) {
