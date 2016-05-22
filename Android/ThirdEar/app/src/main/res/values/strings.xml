@@ -1,6 +1,9 @@
 <resources>
     <string name="app_name">ThirdEar</string>
 
+    <string name="stopped_msg">ready to listen</string>
+    <string name="started_msg">listening...</string>
+
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
 
