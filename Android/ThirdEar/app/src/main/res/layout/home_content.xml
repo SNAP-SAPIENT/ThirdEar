@@ -42,35 +42,11 @@
     <ImageButton
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/device1_btn"
-        android:src="@android:drawable/star_big_on"
-        android:layout_below="@+id/mainButton"
-        android:layout_alignStart="@+id/waveImageView"
-        android:layout_marginTop="53dp" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Living room"
-        android:id="@+id/textView1"
-        android:layout_below="@+id/device1_btn"
-        android:layout_alignParentStart="true" />
-
-    <ImageButton
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/device2_btn"
-        android:src="@android:drawable/star_big_off"
-        android:layout_alignTop="@+id/device1_btn"
-        android:layout_alignStart="@+id/mainButton" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Den"
-        android:id="@+id/textView2"
-        android:layout_alignStart="@+id/statusTextView"
-        android:layout_alignTop="@+id/textView1" />
+        android:id="@+id/quickviewBtn"
+        android:src="@android:drawable/ic_menu_manage"
+        android:layout_marginBottom="70dp"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true" />
 
 
     <!--    <android.support.design.widget.FloatingActionButton
