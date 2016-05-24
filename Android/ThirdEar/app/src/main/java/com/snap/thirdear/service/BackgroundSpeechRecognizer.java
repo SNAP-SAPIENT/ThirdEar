@@ -14,9 +14,12 @@ import android.speech.RecognitionListener;
 import android.speech.RecognizerIntent;
 import android.speech.SpeechRecognizer;
 import android.speech.tts.TextToSpeech;
+import android.support.annotation.NonNull;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.snap.thirdear.AlertActivity;
+import com.snap.thirdear.R;
 import com.snap.thirdear.db.DataBaseHelper;
 
 import java.util.HashMap;
@@ -169,45 +172,42 @@ public class BackgroundSpeechRecognizer extends Service implements RecognitionLi
             String word = (String)data.get(0);
 
             command = checkForKeywords(word);
+            String group = command;
 
             HashMap<String, String> map = new HashMap<String, String>();
             map.put(TextToSpeech.Engine.KEY_PARAM_UTTERANCE_ID, "UniqueID");
 
             if(command != null && command.equals("GREETING")) {
-               speak("greeting to you too", map);
+                showAlertScreen(word, group);
+                speak("greeting to you too", map);
                 alertVibrate(1);
                 sendCmdToBluetoohDevices(command);
             }if(command != null && command.equals("FIRE_ALERT")) {
+                showAlertScreen(word, group);
                 speak("RUN", map);
                 alertVibrate(2);
                 sendCmdToBluetoohDevices(command);
             }if(command != null && command.equals("OK")){
+                showAlertScreen(word, group);
                 speak("All is well", map);
                 alertVibrate(1);
                 sendCmdToBluetoohDevices(command);
             }
-
-
-
-          /*  Intent intent = new Intent(NOTIFICATION);
-            intent.putExtra(RESULT, data);
-            sendBroadcast(intent);*/
-
-           // JSONArray mJSONArray = new JSONArray(Arrays.asList(data));
-            //this.recognizedText.setText(mJSONArray.toString());
-
-
-            /*Log.d(getPackageName(), "Current mic vol (" + audioManager.getStreamVolume(AudioManager.STREAM_MUSIC) +
-                    ") / Max mic vol (" +  audioManager.getStreamMaxVolume(AudioManager.STREAM_MUSIC) + ")");*/
-
-
-
             speechRecognizer.startListening(speechRecognizerIntent);
 
         } else {
             speechRecognizer.stopListening();
             speechRecognizer.startListening(speechRecognizerIntent);
         }
+    }
+
+    @NonNull
+    private void showAlertScreen(String word, String group) {
+        Intent intent = new Intent(getApplicationContext(),AlertActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        intent.putExtra(getString(R.string.intent_trigger),word);
+        intent.putExtra(getString(R.string.intent_group),group);
+        startActivity(intent);
     }
 
     private String checkForKeywords(String word) {
