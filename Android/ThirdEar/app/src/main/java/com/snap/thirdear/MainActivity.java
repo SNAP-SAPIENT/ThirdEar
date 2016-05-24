@@ -39,6 +39,9 @@ public class MainActivity extends AppCompatActivity
 
         //set up Db
         dataBaseHelper = new DataBaseHelper(this);
+        /*dataBaseHelper.dropAllTables();
+        dataBaseHelper.createAllTables();
+        dataBaseHelper.loadData();*/
 
         /*        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.device1);
         fab.setOnClickListener(new View.OnClickListener() {
