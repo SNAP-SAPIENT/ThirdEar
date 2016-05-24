@@ -28,14 +28,23 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="&quot;help&quot;"
         android:id="@+id/alertMsg"
         android:layout_centerVertical="true"
         android:textSize="35sp"
         android:textAlignment="center"
         android:textColor="@color/alertText"
         android:layout_alignParentEnd="true"
-        android:layout_toEndOf="@+id/imageView" />
+        android:layout_toEndOf="@+id/imageView"
+        android:text="asdasd" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="asdasd"
+        android:id="@+id/textView"
+        android:layout_toEndOf="@+id/imageView"
+        android:layout_above="@+id/alertMsg"
+        android:layout_alignTop="@+id/alertMsg" />
 
     <ImageButton
         android:layout_width="wrap_content"
@@ -52,5 +61,6 @@
         android:id="@+id/button"
         android:layout_below="@+id/imageView"
         android:layout_alignEnd="@+id/deviceName" />
+
 
 </RelativeLayout>

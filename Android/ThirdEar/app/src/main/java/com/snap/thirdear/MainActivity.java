@@ -140,8 +140,7 @@ public class MainActivity extends AppCompatActivity
         if (id == R.id.nav_quick_view) {
             Toast.makeText(this, "nav_quick_view clicked", Toast.LENGTH_LONG).show();
         } else if (id == R.id.nav_alert_preferences) {
-            Intent intent = new Intent(getApplicationContext(),AlertActivity.class);
-            startActivity(intent);
+
         } else if (id == R.id.nav_monitors) {
 
         } else if (id == R.id.nav_actors) {

@@ -14,6 +14,8 @@
 
     <string name="stopped_msg">ready to listen</string>
     <string name="started_msg">listening...</string>
+    <string name="intent_trigger">TRIGGER</string>
+    <string name="intent_group">GROUP</string>
 
 
 </resources>
