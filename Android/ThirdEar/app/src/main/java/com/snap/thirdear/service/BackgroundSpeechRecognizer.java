@@ -21,6 +21,8 @@ import android.widget.Toast;
 import com.snap.thirdear.AlertActivity;
 import com.snap.thirdear.R;
 import com.snap.thirdear.db.DataBaseHelper;
+import com.snap.thirdear.db.Groups;
+import com.snap.thirdear.db.Trigger;
 
 import java.util.HashMap;
 import java.util.Locale;
@@ -158,70 +160,49 @@ public class BackgroundSpeechRecognizer extends Service implements RecognitionLi
     @Override
     public void onResults(Bundle results) {
         Log.d(getClass().getName(), "onResults(..) called.");
+        speechRecognizer.cancel();
+        speechRecognizer.stopListening();
         Log.d(getClass().getName(), results.toString());
         java.util.ArrayList data = results.getStringArrayList(SpeechRecognizer.RESULTS_RECOGNITION);
-        String str = new String();
-        if (data.size() > 0) {
-            speechRecognizer.stopListening();
 
+        HashMap<String, String> map = new HashMap<String, String>();
+        map.put(TextToSpeech.Engine.KEY_PARAM_UTTERANCE_ID, "UniqueID");
+
+        if (data.size() > 0) {
             Log.d(getClass().getName(), "results: " + String.valueOf(data.size()));
             String command = null;
             String text = "First match was: "  + data.get(0);
             Log.d(getClass().getName(), "TTS: " + text);
 
-            String word = (String)data.get(0);
+            String mostProbableSentence = (String)data.get(0);
 
-            command = checkForKeywords(word);
-            String group = command;
-
-            HashMap<String, String> map = new HashMap<String, String>();
-            map.put(TextToSpeech.Engine.KEY_PARAM_UTTERANCE_ID, "UniqueID");
-
-            if(command != null && command.equals("GREETING")) {
-                showAlertScreen(word, group);
-                speak("greeting to you too", map);
-                alertVibrate(1);
-                sendCmdToBluetoohDevices(command);
-            }if(command != null && command.equals("FIRE_ALERT")) {
-                showAlertScreen(word, group);
-                speak("RUN", map);
-                alertVibrate(2);
-                sendCmdToBluetoohDevices(command);
-            }if(command != null && command.equals("OK")){
-                showAlertScreen(word, group);
-                speak("All is well", map);
-                alertVibrate(1);
-                sendCmdToBluetoohDevices(command);
+            Trigger trigger = dataBaseHelper.getTriggerByText(mostProbableSentence);
+            Groups group = null;
+            if(null != trigger){
+                group = dataBaseHelper.getGroup(trigger.getGroupsId());
+                if(null != group){
+                    showAlertScreen(mostProbableSentence, group);
+                    speak(group.getAlertText(), map);
+                    if( 1 == group.getPhoneVibrate())
+                        alertVibrate(1);
+                    if( 1 == group.getBtReceiver())
+                        sendCmdToBluetoohDevices(group.getName());
+                }
             }
             speechRecognizer.startListening(speechRecognizerIntent);
 
         } else {
-            speechRecognizer.stopListening();
             speechRecognizer.startListening(speechRecognizerIntent);
         }
     }
 
     @NonNull
-    private void showAlertScreen(String word, String group) {
+    private void showAlertScreen(String sentence, Groups group) {
         Intent intent = new Intent(getApplicationContext(),AlertActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        intent.putExtra(getString(R.string.intent_trigger),word);
-        intent.putExtra(getString(R.string.intent_group),group);
+        intent.putExtra(getString(R.string.intent_trigger),sentence);
+        intent.putExtra(getString(R.string.intent_group),group.getName());
         startActivity(intent);
-    }
-
-    private String checkForKeywords(String word) {
-        //Cursor c = db.query(DataBaseHelper.TABLE_ONE_NAME, "");
-
-        String command = null;
-        if(word.contains("hello")){
-            command = "GREETING";
-        }else if(word.contains("fire")){
-            command = "FIRE_ALERT";
-        }else if(word.contains("okay")){
-            command = "OK";
-        }
-        return command;
     }
 
     private void sendCmdToBluetoohDevices(String command) {
