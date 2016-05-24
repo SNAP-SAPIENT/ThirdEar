@@ -23,7 +23,6 @@
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -32,12 +31,17 @@
         <service android:name=".service.AudioRecorderService" />
         <service android:name=".service.BluetoothService" />
 
-        <activity android:name=".KeyWordsActivity" />
+        <activity android:name=".KeyWordsActivity"
+            android:label="@string/title_key_words"
+            android:screenOrientation="portrait">
+        </activity>
         <activity
             android:name=".AlertActivity"
+            android:screenOrientation="portrait"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:label="@string/title_activity_alert"
-            android:theme="@style/FullscreenTheme"></activity>
+            android:theme="@style/FullscreenTheme">
+        </activity>
     </application>
 
 </manifest>

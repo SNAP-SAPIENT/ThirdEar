@@ -1,57 +1,56 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#0099cc"
-    tools:context="com.snap.thirdear.AlertActivity">
+    android:background="@color/alertBackground"
+    tools:context="com.snap.thirdear.AlertActivity"
+    android:id="@+id/fullscreenContent">
 
-    <!-- The primary full-screen view. This can be replaced with whatever view
-         is needed to present your content, e.g. VideoView, SurfaceView,
-         TextureView, etc. -->
+    <ImageView
+        android:layout_width="159dp"
+        android:layout_height="318dp"
+        android:id="@+id/imageView"
+        android:layout_gravity="left|center_vertical"
+        android:src="@drawable/alert"
+        android:layout_centerVertical="true" />
+
     <TextView
-        android:id="@+id/fullscreen_content"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:gravity="center"
-        android:keepScreenOn="true"
-        android:text="@string/dummy_content"
-        android:textColor="#33b5e5"
-        android:textSize="50sp"
-        android:textStyle="bold" />
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Living Room"
+        android:id="@+id/deviceName"
+        android:layout_above="@+id/imageView"
+        android:textColor="@color/alertText"
+        android:textSize="25sp"
+        android:layout_centerHorizontal="true" />
 
-    <!-- This FrameLayout insets its children based on system windows using
-         android:fitsSystemWindows. -->
-    <FrameLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:fitsSystemWindows="true">
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="&quot;help&quot;"
+        android:id="@+id/alertMsg"
+        android:layout_centerVertical="true"
+        android:textSize="35sp"
+        android:textAlignment="center"
+        android:textColor="@color/alertText"
+        android:layout_alignParentEnd="true"
+        android:layout_toEndOf="@+id/imageView" />
 
-        <LinearLayout
-            android:id="@+id/fullscreen_content_controls"
-            style="?metaButtonBarStyle"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="bottom|center_horizontal"
-            android:background="@color/black_overlay"
-            android:orientation="horizontal"
-            tools:ignore="UselessParent">
+    <ImageButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/imageButton"
+        android:src="@android:drawable/ic_media_play"
+        android:layout_alignBottom="@+id/imageView"
+        android:layout_toEndOf="@+id/imageView" />
 
-            <Button
-                android:id="@+id/dummy_button"
-                style="?metaButtonBarButtonStyle"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="@string/dummy_button" />
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Acknowledge"
+        android:id="@+id/button"
+        android:layout_below="@+id/imageView"
+        android:layout_alignEnd="@+id/deviceName" />
 
-        </LinearLayout>
-
-        <ImageView
-            android:layout_width="159dp"
-            android:layout_height="318dp"
-            android:id="@+id/imageView"
-            android:layout_gravity="left|center_vertical"
-            android:src="@drawable/alert" />
-    </FrameLayout>
-
-</FrameLayout>
+</RelativeLayout>

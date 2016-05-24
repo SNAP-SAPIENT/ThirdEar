@@ -6,4 +6,5 @@
 
     <color name="black_overlay">#66000000</color>
     <color name="alertBackground">#000000</color>
+    <color name="alertText">#ffffff</color>
 </resources>
