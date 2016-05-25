@@ -17,6 +17,7 @@
     <string name="intent_trigger">TRIGGER</string>
     <string name="intent_group">GROUP</string>
     <string name="keywords_unavailable">No Keywords are available</string>
+    <string name="ok">OK</string>
 
 
 </resources>
