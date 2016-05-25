@@ -39,7 +39,7 @@ public class MainActivity extends AppCompatActivity
 
         //set up Db
         dataBaseHelper = new DataBaseHelper(this);
-        /*dataBaseHelper.dropAllTables();
+       /* dataBaseHelper.dropAllTables();
         dataBaseHelper.createAllTables();
         dataBaseHelper.loadData();*/
 

@@ -297,6 +297,7 @@ public class DataBaseHelper extends SQLiteOpenHelper {
                 group = setGroupVarsFromCursor(cursor);
                 groups.add(group);
             } while (cursor.moveToNext());
+            cursor.close();
         }
         return groups;
     }
@@ -317,7 +318,14 @@ public class DataBaseHelper extends SQLiteOpenHelper {
                 trigger = setTriggerVarsFromCursor(cursor);
                 triggers.add(trigger);
             } while (cursor.moveToNext());
+            cursor.close();
         }
         return triggers;
+    }
+
+    public void insertTrigger(long id, String text) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        Trigger triggerTwo = new Trigger(id, "WORDS", text);
+        addTrigger(triggerTwo, db);
     }
 }

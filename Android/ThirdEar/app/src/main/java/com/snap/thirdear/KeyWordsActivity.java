@@ -2,9 +2,9 @@ package com.snap.thirdear;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.ExpandableListView;
@@ -24,6 +24,7 @@ public class KeyWordsActivity extends AppCompatActivity {
     private DataBaseHelper dataBaseHelper;
     private ExpandableListView expListView;
     private ExpandableListAdapter listAdapter;;
+    private ArrayList<Groups> groupsList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,7 +37,7 @@ public class KeyWordsActivity extends AppCompatActivity {
     }
 
     private void showGroupsAndTriggers() {
-        ArrayList<Groups> groupsList = dataBaseHelper.getAllGroups();
+        groupsList = dataBaseHelper.getAllGroups();
         if (groupsList.isEmpty()) {
             //show no keyword available Dialog
             keywordUnavailableDialog();
@@ -72,8 +73,10 @@ public class KeyWordsActivity extends AppCompatActivity {
     }
 
     public void addKeyword(View view) {
-        Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                .setAction("Action", null).show();
+        Intent intent = new Intent(this,AddKeyWordActivity.class);
+        finish();
+        startActivity(intent);
     }
+
 
 }
