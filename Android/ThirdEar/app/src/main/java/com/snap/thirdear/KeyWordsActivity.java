@@ -55,6 +55,8 @@ public class KeyWordsActivity extends AppCompatActivity {
             }
             listAdapter = new ExpandableListAdapter(this, groupNameList, triggersForEachGroup);
             expListView.setAdapter(listAdapter);
+            //for(int i=0; i < listAdapter.getGroupCount(); i++)
+            expListView.expandGroup(0);
         }
     }
 
