@@ -133,7 +133,8 @@ public class MainActivity extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.nav_quick_view) {
-            Toast.makeText(this, "nav_quick_view clicked", Toast.LENGTH_LONG).show();
+            Intent intent = new Intent(this, QuickViewActivity.class);
+            startActivity(intent);
         } else if (id == R.id.nav_alert_preferences) {
 
         } else if (id == R.id.nav_monitors) {

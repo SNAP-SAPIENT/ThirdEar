@@ -26,6 +26,7 @@
     <string name="add_keyword_group_empty_error">Cannot add keyword as group is empty</string>
     <string name="add_keyword_empty_text_error">please enter key word</string>
     <string name="acknowledge">Acknowledge</string>
+    <string name="title_quickview">Quick View</string>
 
 
 </resources>
