@@ -293,8 +293,7 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         Cursor cursor = db.rawQuery(selectQuery.toString(), null);
         if (cursor.moveToFirst()) {
             do {
-                Groups group = new Groups();
-                group = setGroupVarsFromCursor(cursor);
+                Groups group = setGroupVarsFromCursor(cursor);
                 groups.add(group);
             } while (cursor.moveToNext());
             cursor.close();
@@ -314,8 +313,7 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         Cursor cursor = db.rawQuery(selectQuery.toString(), null);
         if (cursor.moveToFirst()) {
             do {
-                Trigger trigger = new Trigger();
-                trigger = setTriggerVarsFromCursor(cursor);
+                Trigger trigger = setTriggerVarsFromCursor(cursor);
                 triggers.add(trigger);
             } while (cursor.moveToNext());
             cursor.close();
@@ -326,6 +324,14 @@ public class DataBaseHelper extends SQLiteOpenHelper {
     public void insertTrigger(long id, String text) {
         SQLiteDatabase db = this.getWritableDatabase();
         Trigger triggerTwo = new Trigger(id, "WORDS", text);
-        addTrigger(triggerTwo, db);
+        Long result = addTrigger(triggerTwo, db);
+        Log.d("insertTrigger", "_ID= " + result);
+    }
+
+    public int deleteTrigger(String triggerText) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        int result = db.delete(TABLE_TWO_NAME, TABLE_TWO_COL_4 + " = ?",new String[]{triggerText});
+        Log.d("deleteTrigger", "result= " + result);
+        return result;
     }
 }

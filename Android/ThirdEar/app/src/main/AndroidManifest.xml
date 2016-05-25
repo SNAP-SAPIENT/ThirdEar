@@ -33,6 +33,7 @@
 
         <activity android:name=".KeyWordsActivity"
             android:label="@string/title_key_words"
+            android:launchMode="singleInstance"
             android:screenOrientation="portrait">
         </activity>
         <activity
