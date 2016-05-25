@@ -1,15 +1,20 @@
 package com.snap.thirdear.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Typeface;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 
+import com.snap.thirdear.KeyWordsActivity;
 import com.snap.thirdear.R;
+import com.snap.thirdear.db.DataBaseHelper;
 
 import java.util.HashMap;
 import java.util.List;
@@ -22,11 +27,13 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter{
     private Context context;
     private List<String> listDataHeader;
     private HashMap<String, List<String>> listDataChild;
+    private DataBaseHelper dataBaseHelper;
 
-    public ExpandableListAdapter(Context context, List<String> groupNameList, HashMap<String, List<String>> triggersForEachGroup) {
-        this.context = context;
+    public ExpandableListAdapter(Context ctx, List<String> groupNameList, HashMap<String, List<String>> triggersForEachGroup, DataBaseHelper dBHelper) {
+        context = ctx;
         listDataHeader = groupNameList;
         listDataChild = triggersForEachGroup;
+        dataBaseHelper = dBHelper;
     }
 
     @Override
@@ -91,6 +98,16 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter{
         }
         TextView txtListChild = (TextView) convertView.findViewById(R.id.lblListItem);
         txtListChild.setText(childText);
+        ImageButton deleteButton = (ImageButton)convertView.findViewById(R.id.delete_button);
+        deleteButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                Log.d("getChildView", "hello." + childText);
+                dataBaseHelper.deleteTrigger(childText);
+                Intent i = new Intent(context, KeyWordsActivity.class);
+                context.startActivity(i);
+            }
+        });
+
         return convertView;
     }
 

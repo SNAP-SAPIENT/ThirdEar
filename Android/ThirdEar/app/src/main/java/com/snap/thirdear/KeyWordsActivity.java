@@ -27,6 +27,12 @@ public class KeyWordsActivity extends AppCompatActivity {
     private ArrayList<Groups> groupsList;
 
     @Override
+    protected void onResume() {
+        super.onResume();
+        showGroupsAndTriggers();
+    }
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_key_words);
@@ -53,8 +59,10 @@ public class KeyWordsActivity extends AppCompatActivity {
                 }
                 triggersForEachGroup.put(group.getName(), triggerTextList);
             }
-            listAdapter = new ExpandableListAdapter(this, groupNameList, triggersForEachGroup);
+            listAdapter = new ExpandableListAdapter(this, groupNameList, triggersForEachGroup, dataBaseHelper);
             expListView.setAdapter(listAdapter);
+            //for(int i=0; i < listAdapter.getGroupCount(); i++)
+            expListView.expandGroup(0);
         }
     }
 
@@ -74,7 +82,6 @@ public class KeyWordsActivity extends AppCompatActivity {
 
     public void addKeyword(View view) {
         Intent intent = new Intent(this,AddKeyWordActivity.class);
-        finish();
         startActivity(intent);
     }
 
