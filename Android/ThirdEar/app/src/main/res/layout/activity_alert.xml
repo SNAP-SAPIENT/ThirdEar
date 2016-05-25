@@ -12,7 +12,8 @@
         android:id="@+id/imageView"
         android:layout_gravity="left|center_vertical"
         android:src="@drawable/alert"
-        android:layout_centerVertical="true" />
+        android:layout_above="@+id/imageButton"
+        android:layout_toStartOf="@+id/deviceName" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -34,32 +35,22 @@
         android:textAlignment="center"
         android:textColor="@color/alertText"
         android:layout_alignParentEnd="true"
-        android:layout_toEndOf="@+id/imageView"
-        android:text="asdasd" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="asdasd"
-        android:id="@+id/textView"
-        android:layout_toEndOf="@+id/imageView"
-        android:layout_above="@+id/alertMsg"
-        android:layout_alignTop="@+id/alertMsg" />
+        android:layout_toEndOf="@+id/imageView" />
 
     <ImageButton
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/imageButton"
         android:src="@android:drawable/ic_media_play"
-        android:layout_alignBottom="@+id/imageView"
-        android:layout_toEndOf="@+id/imageView" />
+        android:layout_above="@+id/button"
+        android:layout_centerHorizontal="true" />
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Acknowledge"
         android:id="@+id/button"
-        android:layout_below="@+id/imageView"
+        android:layout_alignParentBottom="true"
         android:layout_alignEnd="@+id/deviceName" />
 
 

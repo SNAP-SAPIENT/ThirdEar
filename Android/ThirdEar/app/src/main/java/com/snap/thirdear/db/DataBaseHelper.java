@@ -7,7 +7,12 @@ import android.database.DatabaseUtils;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.support.annotation.NonNull;
 import android.util.Log;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 
 /**
  * Created by hrajal on 5/19/2016.
@@ -218,12 +223,19 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         Log.d("TriggerByText Query ", selectQuery.toString());
         Cursor cursor = db.rawQuery(selectQuery.toString(), null);
         if (cursor != null && cursor.moveToFirst()) {
-            trigger = new Trigger();
-            trigger.set_id(cursor.getLong(0));
-            trigger.setGroupsId(cursor.getInt(1));
-            trigger.setType(cursor.getString(2));
-            trigger.setTriggerText(cursor.getString(3));
+            trigger = setTriggerVarsFromCursor(cursor);
         }
+        return trigger;
+    }
+
+    @NonNull
+    private Trigger setTriggerVarsFromCursor(Cursor cursor) {
+        Trigger trigger;
+        trigger = new Trigger();
+        trigger.set_id(cursor.getLong(0));
+        trigger.setGroupsId(cursor.getInt(1));
+        trigger.setType(cursor.getString(2));
+        trigger.setTriggerText(cursor.getString(3));
         return trigger;
     }
 
@@ -242,21 +254,78 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         Log.d("getGroup Query ", selectQuery.toString());
         Cursor cursor = db.rawQuery(selectQuery.toString(), null);
         if (cursor != null && cursor.moveToFirst()) {
-            group = new Groups();
-            group.set_id(cursor.getLong(0));
-            group.setIconUrl(cursor.getString(1));
-            group.setEnabled(cursor.getInt(2));
-            group.setPhoneVibrate(cursor.getInt(3));
-            group.setPhoneLight(cursor.getInt(4));
-            group.setPhoneAudio(cursor.getInt(5));
-            group.setLight(cursor.getInt(6));
-            group.setBtReceiver(cursor.getInt(7));
-            group.setWearableDevice(cursor.getInt(8));
-            group.setAlertText(cursor.getString(9));
-            group.setName(cursor.getString(10));
+            group = setGroupVarsFromCursor(cursor);
             Log.d("getGroup result ", group.toString());
         }
         return group;
 
+    }
+
+    @NonNull
+    private Groups setGroupVarsFromCursor(Cursor cursor) {
+        Groups group;
+        group = new Groups();
+        group.set_id(cursor.getLong(0));
+        group.setIconUrl(cursor.getString(1));
+        group.setEnabled(cursor.getInt(2));
+        group.setPhoneVibrate(cursor.getInt(3));
+        group.setPhoneLight(cursor.getInt(4));
+        group.setPhoneAudio(cursor.getInt(5));
+        group.setLight(cursor.getInt(6));
+        group.setBtReceiver(cursor.getInt(7));
+        group.setWearableDevice(cursor.getInt(8));
+        group.setAlertText(cursor.getString(9));
+        group.setName(cursor.getString(10));
+        return group;
+    }
+
+    public ArrayList<Groups> getAllGroups() {
+        ArrayList<Groups> groups = new ArrayList<>();
+        SQLiteDatabase db = this.getWritableDatabase();
+        StringBuilder selectQuery = new StringBuilder().append("SELECT ")
+                .append(TABLE_ONE_COL_1).append(", ").append(TABLE_ONE_COL_2).append(", ")
+                .append(TABLE_ONE_COL_3).append(", ").append(TABLE_ONE_COL_4).append(", ")
+                .append(TABLE_ONE_COL_5).append(", ").append(TABLE_ONE_COL_6).append(", ")
+                .append(TABLE_ONE_COL_7).append(", ").append(TABLE_ONE_COL_8).append(", ")
+                .append(TABLE_ONE_COL_9).append(", ").append(TABLE_ONE_COL_10).append(", ")
+                .append(TABLE_ONE_COL_11).append(" FROM ").append(TABLE_ONE_NAME);
+        Log.d("getGroup Query ", selectQuery.toString());
+        Cursor cursor = db.rawQuery(selectQuery.toString(), null);
+        if (cursor.moveToFirst()) {
+            do {
+                Groups group = new Groups();
+                group = setGroupVarsFromCursor(cursor);
+                groups.add(group);
+            } while (cursor.moveToNext());
+            cursor.close();
+        }
+        return groups;
+    }
+
+    public ArrayList<Trigger> getAllTriggersForGroup(long id) {
+        ArrayList<Trigger> triggers = new ArrayList<>();
+        SQLiteDatabase db = this.getWritableDatabase();
+        StringBuilder selectQuery = new StringBuilder().append("SELECT ")
+                .append(TABLE_TWO_COL_1).append(",").append(TABLE_TWO_COL_2)
+                .append(",").append(TABLE_TWO_COL_3).append(",").append(TABLE_TWO_COL_4)
+                .append(" FROM ").append(TABLE_TWO_NAME).append(" WHERE ")
+                .append(TABLE_TWO_COL_2).append(" = ").append(id);
+        Log.d("TriggerByText Query ", selectQuery.toString());
+        Cursor cursor = db.rawQuery(selectQuery.toString(), null);
+        if (cursor.moveToFirst()) {
+            do {
+                Trigger trigger = new Trigger();
+                trigger = setTriggerVarsFromCursor(cursor);
+                triggers.add(trigger);
+            } while (cursor.moveToNext());
+            cursor.close();
+        }
+        return triggers;
+    }
+
+    public void insertTrigger(long id, String text) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        Trigger triggerTwo = new Trigger(id, "WORDS", text);
+        addTrigger(triggerTwo, db);
     }
 }

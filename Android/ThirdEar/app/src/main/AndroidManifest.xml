@@ -42,6 +42,10 @@
             android:label="@string/title_activity_alert"
             android:theme="@style/FullscreenTheme">
         </activity>
+        <activity android:name=".AddKeyWordActivity"
+            android:label="@string/add_key_words"
+            android:screenOrientation="portrait">
+        </activity>
     </application>
 
 </manifest>
