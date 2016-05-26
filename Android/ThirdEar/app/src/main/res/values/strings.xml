@@ -20,7 +20,7 @@
     <string name="ok">OK</string>
     <string name="add_key_words">Add Key Word</string>
     <string name="cancel">Cancel</string>
-    <string name="add_keyword">Add</string>
+    <string name="add_keyword">Save</string>
     <string name="keywords_select_group">Select a group</string>
     <string name="enter_key_words">Enter key words</string>
     <string name="add_keyword_group_empty_error">Cannot add keyword as group is empty</string>
