@@ -141,7 +141,8 @@ public class MainActivity extends AppCompatActivity
             Intent intent = new Intent(this, QuickViewActivity.class);
             startActivity(intent);
         } else if (id == R.id.nav_alert_preferences) {
-
+            Intent intent = new Intent(this, AlertPreferencesActivity.class);
+            startActivity(intent);
         } else if (id == R.id.nav_monitors) {
 
         } else if (id == R.id.nav_actors) {
