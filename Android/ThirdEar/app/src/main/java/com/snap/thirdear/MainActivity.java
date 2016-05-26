@@ -94,6 +94,11 @@ public class MainActivity extends AppCompatActivity
         // stopService(new Intent(getBaseContext(), AudioRecorderService.class));
     }
 
+    public void quickView(View view) {
+        Intent intent = new Intent(this, QuickViewActivity.class);
+        startActivity(intent);
+    }
+
     @Override
     public void onBackPressed() {
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

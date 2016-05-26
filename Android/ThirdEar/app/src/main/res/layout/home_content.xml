@@ -19,7 +19,8 @@
         android:id="@+id/waveImageView"
         android:src="@drawable/soundwave_quiet"
         android:layout_alignParentTop="true"
-        android:layout_alignParentEnd="true" />
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="52dp" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -27,40 +28,27 @@
         android:text="@string/stopped_msg"
         android:id="@+id/statusTextView"
         android:layout_alignTop="@+id/waveImageView"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="44dp" />
+        android:layout_alignEnd="@+id/quickviewBtn"
+        android:textAlignment="center" />
 
     <ImageButton
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="300dp"
+        android:layout_height="65dp"
         android:id="@+id/mainButton"
         android:src="@drawable/start"
         android:onClick="appControl"
         android:layout_below="@+id/waveImageView"
         android:layout_centerHorizontal="true" />
 
-    <ImageButton
+    <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/quickviewBtn"
-        android:src="@android:drawable/ic_menu_manage"
-        android:layout_marginBottom="70dp"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true" />
-
-
-    <!--    <android.support.design.widget.FloatingActionButton
-            android:id="@+id/device1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="bottom|end"
-            android:src="@drawable/device_grey"
-            android:adjustViewBounds="false"
-            android:layout_marginBottom="44dp"
-            android:layout_alignParentBottom="true"
-            android:layout_centerHorizontal="true" />-->
-
-
+        android:onClick="quickView"
+        android:text="@string/main_quick_view_btn"
+        android:layout_below="@+id/mainButton"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="81dp" />
 
 
 </RelativeLayout>

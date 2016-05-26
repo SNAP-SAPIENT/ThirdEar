@@ -12,8 +12,8 @@
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
 
-    <string name="stopped_msg">ready to listen</string>
-    <string name="started_msg">listening...</string>
+    <string name="stopped_msg">Ready to listen</string>
+    <string name="started_msg">Listening......</string>
     <string name="intent_trigger">TRIGGER</string>
     <string name="intent_group">GROUP</string>
     <string name="keywords_unavailable">No Keywords are available</string>
@@ -27,6 +27,7 @@
     <string name="add_keyword_empty_text_error">please enter key word</string>
     <string name="acknowledge">Acknowledge</string>
     <string name="title_quickview">Quick View</string>
+    <string name="main_quick_view_btn">Quick View</string>
 
 
 </resources>
