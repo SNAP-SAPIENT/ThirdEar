@@ -4,7 +4,8 @@
     android:layout_height="match_parent"
     android:background="@color/alertBackground"
     tools:context="com.snap.thirdear.AlertActivity"
-    android:id="@+id/fullscreenContent">
+    android:id="@+id/fullscreenContent"
+    android:onClick="closeAlert">
 
     <ImageView
         android:layout_width="159dp"
@@ -20,9 +21,9 @@
         android:layout_height="wrap_content"
         android:text="Living Room"
         android:id="@+id/deviceName"
-        android:layout_above="@+id/imageView"
         android:textColor="@color/alertText"
         android:textSize="25sp"
+        android:layout_above="@+id/imageView"
         android:layout_centerHorizontal="true" />
 
     <TextView
@@ -38,20 +39,23 @@
         android:layout_toEndOf="@+id/imageView" />
 
     <ImageButton
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
         android:id="@+id/imageButton"
-        android:src="@android:drawable/ic_media_play"
-        android:layout_above="@+id/button"
+        android:background="@drawable/playback"
+        android:layout_width="200dp"
+        android:layout_height="40dp"
+        android:layout_marginBottom="37dp"
+        android:layout_above="@+id/acknowledge_button"
         android:layout_centerHorizontal="true" />
 
     <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Acknowledge"
-        android:id="@+id/button"
+        android:layout_width="200dp"
+        android:layout_height="40dp"
+        android:text="@string/acknowledge"
+        android:id="@+id/acknowledge_button"
         android:layout_alignParentBottom="true"
-        android:layout_alignEnd="@+id/deviceName" />
+        android:layout_alignStart="@+id/imageButton"
+        android:layout_marginBottom="34dp"
+        android:onClick="closeAlert" />
 
 
 </RelativeLayout>

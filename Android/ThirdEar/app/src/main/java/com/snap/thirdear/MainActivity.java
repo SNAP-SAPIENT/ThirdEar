@@ -39,7 +39,7 @@ public class MainActivity extends AppCompatActivity
 
         //set up Db
         dataBaseHelper = new DataBaseHelper(this);
-       /* dataBaseHelper.dropAllTables();
+        /*dataBaseHelper.dropAllTables();
         dataBaseHelper.createAllTables();
         dataBaseHelper.loadData();*/
 
@@ -68,14 +68,14 @@ public class MainActivity extends AppCompatActivity
     public void appControl(View view) {
         if ( 0 == startStopBtnStatus){
             startStopBtnStatus = 1;
-            startListening(view);
+            startListening();
         }else{
             startStopBtnStatus = 0;
-            stopListening(view);
+            stopListening();
         }
     }
 
-    private void startListening(View view) {
+    public void startListening() {
         startStopBtn.setImageResource(R.drawable.stop);
         startStopText.setText(R.string.started_msg);
         waveImg.setImageResource(R.drawable.soundwave_listening);
@@ -85,13 +85,18 @@ public class MainActivity extends AppCompatActivity
     }
 
 
-    private void stopListening(View view) {
+    public void stopListening() {
         startStopText.setText(R.string.stopped_msg);
         startStopBtn.setImageResource(R.drawable.start);
         waveImg.setImageResource(R.drawable.soundwave_quiet);
         stopService(new Intent(getBaseContext(), BackgroundSpeechRecognizer.class));
         stopService(new Intent(getBaseContext(), BluetoothService.class));
         // stopService(new Intent(getBaseContext(), AudioRecorderService.class));
+    }
+
+    public void quickView(View view) {
+        Intent intent = new Intent(this, QuickViewActivity.class);
+        startActivity(intent);
     }
 
     @Override
@@ -133,15 +138,17 @@ public class MainActivity extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.nav_quick_view) {
-            Toast.makeText(this, "nav_quick_view clicked", Toast.LENGTH_LONG).show();
+            Intent intent = new Intent(this, QuickViewActivity.class);
+            startActivity(intent);
         } else if (id == R.id.nav_alert_preferences) {
-
+            Intent intent = new Intent(this, AlertPreferencesActivity.class);
+            startActivity(intent);
         } else if (id == R.id.nav_monitors) {
 
         } else if (id == R.id.nav_actors) {
 
         } else if (id == R.id.nav_key_words) {
-            Intent intent = new Intent(getApplicationContext(),KeyWordsActivity.class);
+            Intent intent = new Intent(this, KeyWordsActivity.class);
             startActivity(intent);
         }else if (id == R.id.nav_general_settings) {
 
