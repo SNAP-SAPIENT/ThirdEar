@@ -108,7 +108,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:id="@+id/alert_linear">
-
+                <!--<include layout="@layout/alert_pref_relative" />-->
             </LinearLayout>
         </HorizontalScrollView>
 

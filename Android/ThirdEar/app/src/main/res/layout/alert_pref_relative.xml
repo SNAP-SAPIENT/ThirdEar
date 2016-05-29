@@ -2,7 +2,9 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/alert_rel">
+   <!-- tools:showIn="@layout/activity_alert_preferences">-->
 
     <TextView
         android:layout_width="wrap_content"
@@ -11,7 +13,8 @@
         android:id="@+id/group_name_text"
         android:layout_marginLeft="5dp"
         android:layout_marginRight="5dp"
-        android:layout_centerHorizontal="true" />
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp" />
 
     <Button
         android:layout_width="wrap_content"
@@ -19,7 +22,7 @@
         android:id="@+id/select_all_btn"
         android:layout_below="@+id/group_name_text"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="43dp"
+        android:layout_marginTop="20dp"
         android:checked="false"
         android:text="Select all" />
 
@@ -30,7 +33,8 @@
         android:layout_marginTop="30dp"
         android:checked="false"
         android:layout_below="@+id/select_all_btn"
-        android:layout_centerHorizontal="true" />
+        android:layout_centerHorizontal="true"
+        android:onClick="onClickPhoneSpeaker" />
 
     <Switch
         android:layout_width="wrap_content"
@@ -39,7 +43,8 @@
         android:layout_marginTop="25dp"
         android:checked="false"
         android:layout_below="@+id/switch_phone_speaker"
-        android:layout_centerHorizontal="true" />
+        android:layout_centerHorizontal="true"
+        android:onClick="onClickPhoneFlashLight" />
 
     <Switch
         android:layout_width="wrap_content"
@@ -47,7 +52,8 @@
         android:id="@+id/switch_phone_vibrate"
         android:layout_marginTop="30dp"
         android:checked="false"
-        android:layout_centerInParent="true" />
+        android:layout_centerInParent="true"
+        android:onClick="onClickPhoneVibrate" />
 
     <Switch
         android:layout_width="wrap_content"
@@ -56,7 +62,9 @@
         android:checked="false"
         android:layout_below="@+id/switch_phone_vibrate"
         android:layout_marginTop="40dp"
-        android:layout_centerInParent="true" />
+        android:layout_centerInParent="true"
+        android:nestedScrollingEnabled="false"
+        android:onClick="onClickLight" />
 
     <Switch
         android:layout_width="wrap_content"
@@ -65,7 +73,8 @@
         android:checked="false"
         android:layout_marginTop="35dp"
         android:layout_below="@+id/switch_light"
-        android:layout_centerInParent="true" />
+        android:layout_centerInParent="true"
+        android:onClick="onClickWatch" />
 
     <Switch
         android:layout_width="wrap_content"
@@ -74,6 +83,7 @@
         android:checked="false"
         android:layout_marginTop="30dp"
         android:layout_below="@+id/switch_watch"
-        android:layout_centerInParent="true" />
+        android:layout_centerInParent="true"
+        android:onClick="onClickHearingAid" />
 
 </RelativeLayout>

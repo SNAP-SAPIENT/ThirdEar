@@ -47,6 +47,9 @@ public class DataBaseHelper extends SQLiteOpenHelper {
     public static final String TABLE_TWO_COL_3 = "TYPE";
     public static final String TABLE_TWO_COL_4 = "TRIGGER_TEXT";
 
+    public static final long DB_TRUE = 1;
+    public static final long DB_FALSE = 0;
+
 
     public DataBaseHelper(Context context) {
         super(context, DATABASE_NAME, null, VERSION);
@@ -332,6 +335,18 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase();
         int result = db.delete(TABLE_TWO_NAME, TABLE_TWO_COL_4 + " = ?",new String[]{triggerText});
         Log.d("deleteTrigger", "result= " + result);
+        return result;
+    }
+
+    public int toggleAlertMode(String columnName, long columnValue, String groupId) {
+        Log.d("toggleAlertMode", "columnName= " + columnName);
+        Log.d("toggleAlertMode", "columnValue= " + columnValue);
+        Log.d("toggleAlertMode", "groupId= " + groupId);
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(columnName, columnValue);
+        int result = db.update(TABLE_ONE_NAME, contentValues, TABLE_ONE_COL_1 + " = ?",new String[]{groupId});
+        Log.d("toggleAlertMode", "result= " + result);
         return result;
     }
 }
