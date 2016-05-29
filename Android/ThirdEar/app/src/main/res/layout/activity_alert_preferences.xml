@@ -98,11 +98,18 @@
         <HorizontalScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:id="@+id/horizontalScrollView"
+            android:id="@+id/alert_horizontalScrollView"
             android:layout_alignParentTop="true"
-            android:layout_centerHorizontal="true">
+            android:layout_centerHorizontal="true"
+            android:fillViewport="false">
 
-            <include layout="@layout/alert_pref_horizntal" />
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:id="@+id/alert_linear">
+
+            </LinearLayout>
         </HorizontalScrollView>
 
     </RelativeLayout>
