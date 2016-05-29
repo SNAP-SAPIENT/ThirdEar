@@ -27,7 +27,7 @@
     <string name="add_keyword_empty_text_error">please enter key word</string>
     <string name="acknowledge">Acknowledge</string>
     <string name="title_quickview">Quick View</string>
-    <string name="main_quick_view_btn">Quick View</string>
+    <string name="title_alertPreferences">Alert Preferences</string>
 
 
 </resources>
