@@ -349,4 +349,19 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         Log.d("toggleAlertMode", "result= " + result);
         return result;
     }
+
+    public int toggleAlertMode(String groupId) {
+        Log.d("toggleAlertMode", "groupId= " + groupId);
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(TABLE_ONE_COL_4, DB_TRUE);
+        contentValues.put(TABLE_ONE_COL_5, DB_TRUE);
+        contentValues.put(TABLE_ONE_COL_6, DB_TRUE);
+        contentValues.put(TABLE_ONE_COL_7, DB_TRUE);
+        contentValues.put(TABLE_ONE_COL_8, DB_TRUE);
+        contentValues.put(TABLE_ONE_COL_9, DB_TRUE);
+        int result = db.update(TABLE_ONE_NAME, contentValues, TABLE_ONE_COL_1 + " = ?",new String[]{groupId});
+        Log.d("toggleAlertMode", "result= " + result);
+        return result;
+    }
 }

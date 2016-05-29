@@ -105,6 +105,14 @@ public class AlertPreferencesActivity extends AppCompatActivity {
         return flag == 1;
     }
 
+
+    public void onClickSelectAll(View view) {
+        Button selectAllButton = (Button) view.findViewById(R.id.select_all_btn);
+        String groupId = (String) selectAllButton.getTag();
+        Log.d("onClickSelectAll", "groupId " + groupId);
+        dataBaseHelper.toggleAlertMode(groupId);
+    }
+
     public void onClickPhoneSpeaker(View view) {
         Switch phoneSpeaker = (Switch) view.findViewById(R.id.switch_phone_speaker);
         String groupId = (String) phoneSpeaker.getTag();
