@@ -52,6 +52,10 @@
             android:label="@string/title_quickview"
             android:screenOrientation="portrait">
         </activity>
+        <activity android:name=".AlertPreferencesActivity"
+            android:label="@string/title_quickview"
+            android:screenOrientation="portrait">
+        </activity>
     </application>
 
 </manifest>
