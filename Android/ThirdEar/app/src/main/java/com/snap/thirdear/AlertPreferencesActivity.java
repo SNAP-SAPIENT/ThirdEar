@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewParent;
 import android.widget.Button;
 import android.widget.HorizontalScrollView;
 import android.widget.LinearLayout;
@@ -111,7 +112,9 @@ public class AlertPreferencesActivity extends AppCompatActivity {
         String groupId = (String) selectAllButton.getTag();
         Log.d("onClickSelectAll", "groupId " + groupId);
         dataBaseHelper.toggleAlertMode(groupId);
-        Switch phoneSpeaker = (Switch) view.findViewById(R.id.switch_phone_speaker);
+        finish();
+        startActivity(getIntent());
+       /* Switch phoneSpeaker = (Switch) view.findViewById(R.id.switch_phone_speaker);
         phoneSpeaker.setChecked(true);
         Switch phoneFlashLight = (Switch) view.findViewById(R.id.switch_phone_flash_light);
         phoneFlashLight.setChecked(true);
@@ -122,7 +125,7 @@ public class AlertPreferencesActivity extends AppCompatActivity {
         Switch smartWatch = (Switch) view.findViewById(R.id.switch_watch);
         smartWatch.setChecked(true);
         Switch hearingAid = (Switch) view.findViewById(R.id.switch_hearing_aid);
-        hearingAid.setChecked(true);
+        hearingAid.setChecked(true);*/
     }
 
     public void onClickPhoneSpeaker(View view) {
