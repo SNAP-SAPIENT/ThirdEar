@@ -111,6 +111,18 @@ public class AlertPreferencesActivity extends AppCompatActivity {
         String groupId = (String) selectAllButton.getTag();
         Log.d("onClickSelectAll", "groupId " + groupId);
         dataBaseHelper.toggleAlertMode(groupId);
+        Switch phoneSpeaker = (Switch) view.findViewById(R.id.switch_phone_speaker);
+        phoneSpeaker.setChecked(true);
+        Switch phoneFlashLight = (Switch) view.findViewById(R.id.switch_phone_flash_light);
+        phoneFlashLight.setChecked(true);
+        Switch phoneVibrate = (Switch) view.findViewById(R.id.switch_phone_vibrate);
+        phoneVibrate.setChecked(true);
+        Switch light = (Switch) view.findViewById(R.id.switch_light);
+        light.setChecked(true);
+        Switch smartWatch = (Switch) view.findViewById(R.id.switch_watch);
+        smartWatch.setChecked(true);
+        Switch hearingAid = (Switch) view.findViewById(R.id.switch_hearing_aid);
+        hearingAid.setChecked(true);
     }
 
     public void onClickPhoneSpeaker(View view) {
