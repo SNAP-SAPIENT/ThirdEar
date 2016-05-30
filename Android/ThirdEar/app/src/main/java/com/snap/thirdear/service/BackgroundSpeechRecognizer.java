@@ -192,8 +192,9 @@ public class BackgroundSpeechRecognizer extends Service implements RecognitionLi
                     speak(group.getAlertText(), map);
                     showAlertScreen(trigger.getMatchingWord(), group);
                 }
+            }else {
+                speechRecognizer.startListening(speechRecognizerIntent);
             }
-            //speechRecognizer.startListening(speechRecognizerIntent);
 
         } else {
             speechRecognizer.startListening(speechRecognizerIntent);
@@ -206,6 +207,7 @@ public class BackgroundSpeechRecognizer extends Service implements RecognitionLi
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         intent.putExtra(getString(R.string.intent_trigger),matchingText);
         intent.putExtra(getString(R.string.intent_group),group.getName());
+        intent.putExtra(getString(R.string.intent_img),group.getIconUrl());
         startActivity(intent);
     }
 

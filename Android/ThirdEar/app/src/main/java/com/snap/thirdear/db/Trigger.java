@@ -21,6 +21,11 @@ public class Trigger {
         this.triggerText = trigger_text;
     }
 
+    public Trigger(String type, String trigger_text) {
+        this.type = type;
+        this.triggerText = trigger_text;
+    }
+
 
     public long get_id() {
         return _id;

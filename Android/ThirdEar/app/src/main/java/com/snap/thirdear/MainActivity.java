@@ -36,12 +36,13 @@ public class MainActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         setUpUI();
+    }
 
-        //set up Db
+    private void loadTestData() {
         dataBaseHelper = new DataBaseHelper(this);
-        /*dataBaseHelper.dropAllTables();
+        dataBaseHelper.dropAllTables();
         dataBaseHelper.createAllTables();
-        dataBaseHelper.loadData();*/
+        dataBaseHelper.loadData();
     }
 
     private void setUpUI() {
@@ -152,6 +153,8 @@ public class MainActivity extends AppCompatActivity
             startActivity(intent);
         }else if (id == R.id.nav_general_settings) {
 
+        }else if (id == R.id.nav_load_data) {
+            loadTestData();
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

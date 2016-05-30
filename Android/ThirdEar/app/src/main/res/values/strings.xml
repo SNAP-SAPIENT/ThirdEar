@@ -28,6 +28,7 @@
     <string name="acknowledge">Acknowledge</string>
     <string name="title_quickview">Quick View</string>
     <string name="title_alertPreferences">Alert Preferences</string>
+    <string name="intent_img">alert_img</string>
 
 
 </resources>

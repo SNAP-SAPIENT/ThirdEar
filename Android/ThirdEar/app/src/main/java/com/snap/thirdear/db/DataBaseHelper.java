@@ -170,16 +170,18 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         try {
             db.beginTransaction();
 
-            //first group
-            Groups groupOne = new Groups("alert.png", 1, 1, 1, 1, 1, 1, 1, "call for assistance detected", "Help");
-            long groupOneId = addGroup(groupOne, db);
-            Trigger triggerOne = new Trigger(groupOneId, "WORDS", "help");
-            addTrigger(triggerOne, db);
-            //group two
-            Groups groupTwo = new Groups("alert.png", 1, 1, 1, 1, 1, 1, 1, "greeting detected", "Greeting");
-            long groupTwoId = addGroup(groupTwo, db);
-            Trigger triggerTwo = new Trigger(groupTwoId, "WORDS", "hello");
-            addTrigger(triggerTwo, db);
+            //first 1
+            Groups group = new Groups("emergency_alert", 1, 1, 1, 0, 1, 1, 1, "Disaster alert", "Disaster");
+            Trigger trigger = new Trigger("WORDS", "help");
+            insertGroupAndTrigger(db, group, trigger);
+            //group 2
+            Groups group1 = new Groups("security_alert", 1, 1, 1, 0, 1, 1, 1, "security alert", "Security");
+            Trigger trigger1 = new Trigger("WORDS", "run");
+            insertGroupAndTrigger(db, group1, trigger1);
+            //group 3
+            Groups group2 = new Groups("emergency_alert", 1, 1, 1, 0, 1, 1, 1, "Greeting detected", "Greeting");
+            Trigger trigger2 = new Trigger("WORDS", "hello");
+            insertGroupAndTrigger(db, group2, trigger2);
 
             db.setTransactionSuccessful();
         } catch (SQLException e) {
@@ -187,6 +189,12 @@ public class DataBaseHelper extends SQLiteOpenHelper {
             db.endTransaction();
         }
         Log.d("DataBaseHelper loadData", "done inserting data...");
+    }
+
+    private void insertGroupAndTrigger(SQLiteDatabase db, Groups group, Trigger trigger) {
+        long groupId = addGroup(group, db);
+        trigger.setGroupsId(groupId);
+        addTrigger(trigger, db);
     }
 
     public Trigger getTriggerByText(String text) {
