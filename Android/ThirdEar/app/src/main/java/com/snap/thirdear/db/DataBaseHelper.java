@@ -205,9 +205,12 @@ public class DataBaseHelper extends SQLiteOpenHelper {
                 trigger = queryTriggerTable(processedWord, db);
                 //stop on first match
                 if (null != trigger) {
+                    trigger.setMatchingWord(word);
                     break;
                 }
             }
+        }else{
+            trigger.setMatchingWord(text);
         }
         if(null == trigger)
             Log.d("TriggerByText result ", "trigger is null");

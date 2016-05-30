@@ -2,7 +2,6 @@ package com.snap.thirdear;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -11,14 +10,15 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.snap.thirdear.db.DataBaseHelper;
 import com.snap.thirdear.service.BackgroundSpeechRecognizer;
 import com.snap.thirdear.service.BluetoothService;
+import com.snap.thirdear.service.SoundLevelDetector;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -42,8 +42,6 @@ public class MainActivity extends AppCompatActivity
         /*dataBaseHelper.dropAllTables();
         dataBaseHelper.createAllTables();
         dataBaseHelper.loadData();*/
-
-
     }
 
     private void setUpUI() {
@@ -81,6 +79,7 @@ public class MainActivity extends AppCompatActivity
         waveImg.setImageResource(R.drawable.soundwave_listening);
         startService(new Intent(getBaseContext(), BackgroundSpeechRecognizer.class));
         startService(new Intent(getBaseContext(), BluetoothService.class));
+       // startService(new Intent(getBaseContext(), SoundLevelDetector.class));
         // startService(new Intent(getBaseContext(), AudioRecorderService.class));
     }
 
@@ -91,6 +90,7 @@ public class MainActivity extends AppCompatActivity
         waveImg.setImageResource(R.drawable.soundwave_quiet);
         stopService(new Intent(getBaseContext(), BackgroundSpeechRecognizer.class));
         stopService(new Intent(getBaseContext(), BluetoothService.class));
+        //stopService(new Intent(getBaseContext(), SoundLevelDetector.class));
         // stopService(new Intent(getBaseContext(), AudioRecorderService.class));
     }
 

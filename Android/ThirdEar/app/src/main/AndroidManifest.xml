@@ -30,6 +30,7 @@
         <service android:name=".service.BackgroundSpeechRecognizer" />
         <service android:name=".service.AudioRecorderService" />
         <service android:name=".service.BluetoothService" />
+        <service android:name=".service.SoundLevelDetector" />
 
         <activity android:name=".KeyWordsActivity"
             android:label="@string/title_key_words"

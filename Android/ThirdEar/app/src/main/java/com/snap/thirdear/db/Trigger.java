@@ -8,6 +8,8 @@ public class Trigger {
     private long groupsId;
     private String type;
     private String triggerText;
+// not for DB column
+    private String matchingWord;
 
     public Trigger() {
 
@@ -52,6 +54,15 @@ public class Trigger {
         this.triggerText = triggerText;
     }
 
+
+    public String getMatchingWord() {
+        return matchingWord;
+    }
+
+    public void setMatchingWord(String matchingWord) {
+        this.matchingWord = matchingWord;
+    }
+
     @Override
     public String toString() {
         return "Trigger{" +
@@ -59,6 +70,7 @@ public class Trigger {
                 ", groupsId=" + groupsId +
                 ", type='" + type + '\'' +
                 ", triggerText='" + triggerText + '\'' +
+                ", matchingWord='" + matchingWord + '\'' +
                 '}';
     }
 }

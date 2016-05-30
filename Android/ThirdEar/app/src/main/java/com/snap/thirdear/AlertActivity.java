@@ -10,6 +10,8 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.widget.TextView;
 
+import com.snap.thirdear.service.BackgroundSpeechRecognizer;
+
 /**
  * An example full-screen activity that shows and hides the system UI (i.e.
  * status bar and navigation/system bar) with user interaction.
@@ -40,6 +42,8 @@ public class AlertActivity extends AppCompatActivity {
     }
 
     public void closeAlert(View view){
+        stopService(new Intent(getBaseContext(), BackgroundSpeechRecognizer.class));
+        startService(new Intent(getBaseContext(), BackgroundSpeechRecognizer.class));
         finish();
     }
 
