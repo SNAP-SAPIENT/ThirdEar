@@ -40,9 +40,7 @@ public class AlertActivity extends AppCompatActivity {
     }
 
     public void closeAlert(View view){
-        Intent intent = new Intent(this,MainActivity.class);
         finish();
-        startActivity(intent);
     }
 
 }
