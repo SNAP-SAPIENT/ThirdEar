@@ -1,13 +1,11 @@
 package com.snap.thirdear;
 
-import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.media.MediaPlayer;
+import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
-import android.os.Handler;
 import android.util.Log;
-import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -35,12 +33,28 @@ public class AlertActivity extends AppCompatActivity {
         String group = intent.getStringExtra(getString(R.string.intent_group));
         String trigger = intent.getStringExtra(getString(R.string.intent_trigger));
         String imageName = intent.getStringExtra(getString(R.string.intent_img));
+        String voiceProfile = intent.getStringExtra(getString(R.string.voice_profile));
         alertText.setText(trigger);
         int id = getResources().getIdentifier(imageName, "drawable", this.getPackageName());
         Log.d(TAG, "onCreate: img id" + id);
         alertImg.setImageResource(id);
+        Log.d(TAG, "onCreate: Voice profile: " + voiceProfile);
+        if(!voiceProfile.equalsIgnoreCase(getString(R.string.pref_selecProfile_default)))
+            playSound(voiceProfile, group);
         hide();
     }
+
+    private void playSound(String voiceProfile, String group) {
+        String sound = voiceProfile+ "_" + group.toLowerCase();
+        Log.d(TAG, "playSound: sound: " + sound);
+        int id = getResources().getIdentifier(sound, "raw", this.getPackageName());
+        Log.d(TAG, "playSound: sound id: " + id);
+        if( id > 0) {
+            MediaPlayer mediaPlayer = MediaPlayer.create(this, id);
+            mediaPlayer.start();
+        }
+    }
+
 
     private void hide() {
         // Hide UI first

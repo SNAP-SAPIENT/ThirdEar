@@ -60,6 +60,10 @@
             android:screenOrientation="portrait"
             android:noHistory="true">
         </activity>
+        <activity android:name=".GeneralSettingsActivity"
+            android:label="@string/title_generalSettings"
+            android:screenOrientation="portrait">
+        </activity>
     </application>
 
 </manifest>

@@ -2,6 +2,7 @@ package com.snap.thirdear;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -18,7 +19,6 @@ import android.widget.TextView;
 import com.snap.thirdear.db.DataBaseHelper;
 import com.snap.thirdear.service.BackgroundSpeechRecognizer;
 import com.snap.thirdear.service.BluetoothService;
-import com.snap.thirdear.service.SoundLevelDetector;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -36,6 +36,7 @@ public class MainActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         setUpUI();
+        PreferenceManager.setDefaultValues(this, R.xml.preferences, false);
     }
 
     private void loadTestData() {
@@ -152,7 +153,8 @@ public class MainActivity extends AppCompatActivity
             Intent intent = new Intent(this, KeyWordsActivity.class);
             startActivity(intent);
         }else if (id == R.id.nav_general_settings) {
-
+            Intent intent = new Intent(this, GeneralSettingsActivity.class);
+            startActivity(intent);
         }else if (id == R.id.nav_load_data) {
             loadTestData();
         }

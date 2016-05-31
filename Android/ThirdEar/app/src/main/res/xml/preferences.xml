@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+    <PreferenceCategory
+        android:key="pref_general_langSettings"
+        android:title="@string/pref_LangCat_title">
+
+        <ListPreference
+            android:defaultValue="@string/pref_selectLang_default"
+            android:dialogTitle="@string/pref_selectLang_dilTitle"
+            android:entries="@array/pref_selectLang_entries"
+            android:entryValues="@array/pref_selectLang_entriesValues"
+            android:key="pref_selectLang"
+            android:title="@string/pref_selectLang_title" />
+
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        android:key="pref_general_profileSettings"
+        android:title="@string/pref_profileSettings_title">
+
+        <ListPreference
+            android:defaultValue="@string/pref_selecProfile_default"
+            android:dialogTitle="@string/pref_selectProfile_dilTitle"
+            android:entries="@array/pref_selectProfile_entries"
+            android:entryValues="@array/pref_selectProfile_entriesValues"
+            android:key="pref_selectProfile"
+            android:title="@string/pref_selectProfile_title" />
+    </PreferenceCategory>
+</PreferenceScreen>

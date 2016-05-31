@@ -4,25 +4,25 @@
 
     <item
         android:id="@+id/nav_quick_view"
-        android:title="Quick View" />
+        android:title="@string/menu_quick_view" />
     <item
         android:id="@+id/nav_alert_preferences"
-        android:title="Alert preferences" />
+        android:title="@string/menu_alert_preferences" />
     <item
         android:id="@+id/nav_monitors"
-        android:title="Monitors" />
+        android:title="@string/menu_monitors" />
     <item
         android:id="@+id/nav_actors"
-        android:title="Actors" />
+        android:title="@string/menu_actors" />
     <item
         android:id="@+id/nav_key_words"
-        android:title="Key Words" />
+        android:title="@string/menu_key_words" />
     <item
         android:id="@+id/nav_general_settings"
-        android:title="General Settings" />
+        android:title="@string/menu_general_settings" />
 
     <item
         android:id="@+id/nav_load_data"
-        android:title="Load Test Data" />
+        android:title="@string/menu_load_test_data" />
 
 </menu>
