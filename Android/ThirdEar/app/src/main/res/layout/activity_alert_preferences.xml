@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="70dp"
+        android:layout_height="match_parent"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true"
+        android:background="#8a000000"
+        android:id="@+id/linearLayout">
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="50dp" />
+
+        <ImageView
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:id="@+id/imageView9"
+            android:src="@drawable/all_white"
+            android:layout_gravity="center"
+            android:layout_marginBottom="5dp" />
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#24000000">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Phone"
+                android:id="@+id/textView3"
+                android:textColor="#ffffff"
+                android:layout_marginBottom="3dp" />
+
+            <ImageView
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:id="@+id/imageView10"
+                android:src="@drawable/audio_icon_white"
+                android:layout_gravity="center"
+                android:layout_marginBottom="5dp" />
+
+            <ImageView
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:id="@+id/imageView5"
+                android:src="@drawable/flashlight_white"
+                android:layout_gravity="center"
+                android:layout_marginBottom="5dp" />
+
+            <ImageView
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:id="@+id/imageView6"
+                android:src="@drawable/vibrate_white"
+                android:layout_gravity="center"
+                android:layout_marginBottom="5dp" />
+        </LinearLayout>
+
+        <ImageView
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:id="@+id/imageView4"
+            android:src="@drawable/lightbulb_white"
+            android:layout_gravity="center"
+            android:layout_marginBottom="5dp"
+            android:layout_marginTop="10dp" />
+
+        <ImageView
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:id="@+id/imageView8"
+            android:src="@drawable/smartwatch_white"
+            android:layout_gravity="center"
+            android:layout_marginBottom="5dp" />
+
+        <ImageView
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:id="@+id/imageView7"
+            android:src="@drawable/hearingaid_white"
+            android:layout_gravity="center"
+            android:layout_marginTop="5dp" />
+
+    </LinearLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_toEndOf="@+id/linearLayout">
+
+        <HorizontalScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/alert_horizontalScrollView"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:fillViewport="false">
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:id="@+id/alert_linear">
+                <!--<include layout="@layout/alert_pref_relative" />-->
+            </LinearLayout>
+        </HorizontalScrollView>
+
+    </RelativeLayout>
+
+</RelativeLayout>

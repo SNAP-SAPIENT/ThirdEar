@@ -1,0 +1,61 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/alertBackground"
+    tools:context="com.snap.thirdear.AlertActivity"
+    android:id="@+id/fullscreenContent"
+    android:onClick="closeAlert">
+
+    <ImageView
+        android:layout_width="159dp"
+        android:layout_height="318dp"
+        android:id="@+id/imageView"
+        android:layout_gravity="left|center_vertical"
+        android:src="@drawable/alert"
+        android:layout_above="@+id/imageButton"
+        android:layout_toStartOf="@+id/deviceName" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Living Room"
+        android:id="@+id/deviceName"
+        android:textColor="@color/alertText"
+        android:textSize="25sp"
+        android:layout_above="@+id/imageView"
+        android:layout_centerHorizontal="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:id="@+id/alertMsg"
+        android:layout_centerVertical="true"
+        android:textSize="35sp"
+        android:textAlignment="center"
+        android:textColor="@color/alertText"
+        android:layout_alignParentEnd="true"
+        android:layout_toEndOf="@+id/imageView" />
+
+    <ImageButton
+        android:id="@+id/imageButton"
+        android:background="@drawable/playback"
+        android:layout_width="200dp"
+        android:layout_height="40dp"
+        android:layout_marginBottom="37dp"
+        android:layout_above="@+id/acknowledge_button"
+        android:layout_centerHorizontal="true" />
+
+    <Button
+        android:layout_width="200dp"
+        android:layout_height="40dp"
+        android:text="@string/acknowledge"
+        android:id="@+id/acknowledge_button"
+        android:layout_alignParentBottom="true"
+        android:layout_alignStart="@+id/imageButton"
+        android:layout_marginBottom="34dp"
+        android:onClick="closeAlert" />
+
+
+</RelativeLayout>

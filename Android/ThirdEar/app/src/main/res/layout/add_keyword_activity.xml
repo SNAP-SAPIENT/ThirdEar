@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+    <TextView
+        android:layout_width="100dp"
+        android:layout_height="60dp"
+        android:id="@+id/textView"
+        android:textAlignment="center"
+        android:elegantTextHeight="false"
+        android:layout_alignParentStart="false"
+        android:layout_alignTop="@+id/groups_dropdown"
+        android:text="@string/keywords_select_group" />
+
+    <Spinner
+        android:layout_width="200dp"
+        android:layout_height="60dp"
+        android:id="@+id/groups_dropdown"
+        android:layout_marginBottom="39dp"
+        android:layout_above="@+id/trigger_text"
+        android:layout_alignParentEnd="true"
+        android:layout_toEndOf="@+id/textView" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/enter_key_words"
+        android:id="@+id/textView2"
+        android:layout_centerVertical="true"
+        android:layout_alignParentStart="true" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="textPersonName"
+        android:ems="10"
+        android:id="@+id/trigger_text"
+        android:layout_centerVertical="true"
+        android:layout_alignParentEnd="true" />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/imageView2"
+        android:src="@drawable/soundwave_quiet"
+        android:layout_below="@+id/trigger_text"
+        android:layout_centerHorizontal="true" />
+
+    <GridLayout
+        android:layout_width="300dp"
+        android:layout_height="100dp"
+        android:orientation="horizontal"
+        android:rowCount="20"
+        android:columnCount="30"
+        android:background="@null"
+        android:id="@+id/gridLayout"
+        android:layout_above="@+id/textView"
+        android:layout_centerHorizontal="true">
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/cancel"
+            android:id="@+id/cancel"
+            android:onClick="closeActivity"
+            android:layout_row="0"
+            android:layout_column="7"
+            android:layout_alignBaseline="@+id/textView2"
+            android:layout_alignBottom="@+id/textView2"
+            android:layout_toStartOf="@+id/trigger_text" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/add_keyword"
+            android:id="@+id/add_keyword"
+            android:onClick="addTrigger"
+            android:layout_above="@+id/textView"
+            android:layout_alignParentEnd="true"
+            android:layout_row="0"
+            android:layout_column="29" />
+
+    </GridLayout>
+
+
+</RelativeLayout>
