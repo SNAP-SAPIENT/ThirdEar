@@ -2,7 +2,7 @@ package com.snap.thirdear;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
+import android.preference.PreferenceManager;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -11,10 +11,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.snap.thirdear.db.DataBaseHelper;
 import com.snap.thirdear.service.BackgroundSpeechRecognizer;
@@ -36,14 +36,14 @@ public class MainActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         setUpUI();
+        PreferenceManager.setDefaultValues(this, R.xml.preferences, false);
+    }
 
-        //set up Db
+    private void loadTestData() {
         dataBaseHelper = new DataBaseHelper(this);
-        /*dataBaseHelper.dropAllTables();
+        dataBaseHelper.dropAllTables();
         dataBaseHelper.createAllTables();
-        dataBaseHelper.loadData();*/
-
-
+        dataBaseHelper.loadData();
     }
 
     private void setUpUI() {
@@ -81,6 +81,7 @@ public class MainActivity extends AppCompatActivity
         waveImg.setImageResource(R.drawable.soundwave_listening);
         startService(new Intent(getBaseContext(), BackgroundSpeechRecognizer.class));
         startService(new Intent(getBaseContext(), BluetoothService.class));
+       // startService(new Intent(getBaseContext(), SoundLevelDetector.class));
         // startService(new Intent(getBaseContext(), AudioRecorderService.class));
     }
 
@@ -91,6 +92,7 @@ public class MainActivity extends AppCompatActivity
         waveImg.setImageResource(R.drawable.soundwave_quiet);
         stopService(new Intent(getBaseContext(), BackgroundSpeechRecognizer.class));
         stopService(new Intent(getBaseContext(), BluetoothService.class));
+        //stopService(new Intent(getBaseContext(), SoundLevelDetector.class));
         // stopService(new Intent(getBaseContext(), AudioRecorderService.class));
     }
 
@@ -151,7 +153,10 @@ public class MainActivity extends AppCompatActivity
             Intent intent = new Intent(this, KeyWordsActivity.class);
             startActivity(intent);
         }else if (id == R.id.nav_general_settings) {
-
+            Intent intent = new Intent(this, GeneralSettingsActivity.class);
+            startActivity(intent);
+        }else if (id == R.id.nav_load_data) {
+            loadTestData();
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

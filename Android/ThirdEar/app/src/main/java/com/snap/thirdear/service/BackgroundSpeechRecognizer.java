@@ -1,13 +1,19 @@
 package com.snap.thirdear.service;
 
+import android.app.Notification;
+import android.app.NotificationManager;
 import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.database.sqlite.SQLiteDatabase;
+import android.graphics.Color;
 import android.media.AudioManager;
 import android.os.Bundle;
+import android.os.Handler;
 import android.os.IBinder;
 import android.os.Vibrator;
+import android.preference.PreferenceManager;
 import android.speech.RecognitionListener;
 import android.speech.RecognizerIntent;
 import android.speech.SpeechRecognizer;
@@ -40,6 +46,7 @@ public class BackgroundSpeechRecognizer extends Service implements RecognitionLi
     AudioManager audioManager;
     Intent speechRecognizerIntent;
     TextToSpeech tts;
+    SharedPreferences sharedPref;
 
     public IBinder onBind(Intent intent) {
         return null;
@@ -47,8 +54,8 @@ public class BackgroundSpeechRecognizer extends Service implements RecognitionLi
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
-        // Let it continue running until it is stopped.
-        Toast.makeText(this, "Service Started", Toast.LENGTH_LONG).show();
+        sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
+        //Toast.makeText(this, "Service Started", Toast.LENGTH_LONG).show();
         //cleanup
         if (tts != null) {
             tts.stop();
@@ -88,7 +95,7 @@ public class BackgroundSpeechRecognizer extends Service implements RecognitionLi
 
     @Override
     public void onDestroy() {
-        Toast.makeText(this, "Service Destroyed", Toast.LENGTH_LONG).show();
+        //Toast.makeText(this, "Service Destroyed", Toast.LENGTH_LONG).show();
         if (tts != null) {
             tts.stop();
             tts.shutdown();
@@ -158,6 +165,8 @@ public class BackgroundSpeechRecognizer extends Service implements RecognitionLi
     @Override
     public void onResults(Bundle results) {
         Log.d(getClass().getName(), "onResults(..) called.");
+        String defaultAndroidProfile = getString(R.string.pref_selecProfile_default);
+        String voiceProfile = sharedPref.getString("pref_selectProfile", defaultAndroidProfile);
         speechRecognizer.cancel();
         speechRecognizer.stopListening();
         Log.d(getClass().getName(), results.toString());
@@ -179,15 +188,20 @@ public class BackgroundSpeechRecognizer extends Service implements RecognitionLi
             if(null != trigger){
                 group = dataBaseHelper.getGroup(trigger.getGroupsId());
                 if(null != group){
-                    showAlertScreen(mostProbableSentence, group);
-                    speak(group.getAlertText(), map);
                     if( 1 == group.getPhoneVibrate())
                         alertVibrate(1);
                     if( 1 == group.getBtReceiver())
                         sendCmdToBluetoohDevices(group.getName());
+                    if(1 == group.getPhoneLight())
+                        falshPhoneLight(Color.argb(255, 0, 255, 0));
+                    //Text to spech if ti is android profile
+                    if(voiceProfile.equalsIgnoreCase(defaultAndroidProfile))
+                        speak(group.getAlertText(), map);
+                    showAlertScreen(trigger.getMatchingWord(), group, voiceProfile);
                 }
+            }else {
+                speechRecognizer.startListening(speechRecognizerIntent);
             }
-            speechRecognizer.startListening(speechRecognizerIntent);
 
         } else {
             speechRecognizer.startListening(speechRecognizerIntent);
@@ -195,11 +209,13 @@ public class BackgroundSpeechRecognizer extends Service implements RecognitionLi
     }
 
     @NonNull
-    private void showAlertScreen(String sentence, Groups group) {
+    private void showAlertScreen(String matchingText, Groups group, String voiceProfile) {
         Intent intent = new Intent(getApplicationContext(),AlertActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        intent.putExtra(getString(R.string.intent_trigger),sentence);
+        intent.putExtra(getString(R.string.intent_trigger),matchingText);
         intent.putExtra(getString(R.string.intent_group),group.getName());
+        intent.putExtra(getString(R.string.intent_img),group.getIconUrl());
+        intent.putExtra(getString(R.string.voice_profile),voiceProfile);
         startActivity(intent);
     }
 
@@ -242,5 +258,21 @@ public class BackgroundSpeechRecognizer extends Service implements RecognitionLi
         }else if(level == 2){
             v.vibrate(1000);
         }
+    }
+    private void falshPhoneLight(int color) {
+        /*NotificationManager nm = ( NotificationManager ) getSystemService( NOTIFICATION_SERVICE );
+        Notification notif = new Notification();
+        notif.ledARGB = 0xFFff0000;
+        notif.flags = Notification.FLAG_SHOW_LIGHTS;
+        notif.ledOnMS = 2000;
+        notif.ledOffMS = 2000;
+        nm.notify(1234, notif);
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                NotificationManager nm = ( NotificationManager ) getSystemService( NOTIFICATION_SERVICE );
+                nm.cancel(1234);
+            }
+        }, 5000);*/
     }
 }
