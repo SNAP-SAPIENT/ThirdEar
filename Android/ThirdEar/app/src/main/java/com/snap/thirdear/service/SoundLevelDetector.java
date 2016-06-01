@@ -79,7 +79,6 @@ public class SoundLevelDetector extends Service {
     }
 
     private void destroyThread() {
-        recordSound.interrupt();
         setBreak(Boolean.TRUE);
         if (mRecorder != null) {
             mRecorder.stop();
@@ -153,9 +152,10 @@ public class SoundLevelDetector extends Service {
     public double getAmplitude() {
         double amp = 0;
         if (mRecorder != null) {
-            amp = 20 * Math.log10(mRecorder.getMaxAmplitude() / 2700.0);
+            /*amp = 20 * Math.log10(mRecorder.getMaxAmplitude() / 2700.0);
             Log.d(TAG, "getAmplitude: before abd: " + amp);
-            amp = Math.abs(amp);
+            amp = Math.abs(amp);*/
+            amp = mRecorder.getMaxAmplitude();
             Log.d(TAG, "getAmplitude: after abd: " + amp);
         }
         return amp;
