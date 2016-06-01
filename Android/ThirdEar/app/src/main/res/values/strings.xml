@@ -28,6 +28,24 @@
     <string name="acknowledge">Acknowledge</string>
     <string name="title_quickview">Quick View</string>
     <string name="title_alertPreferences">Alert Preferences</string>
+    <string name="intent_img">alert_img</string>
+    <string name="pref_selectLang_title">Choose Language</string>
+    <string name="pref_selectLang_dilTitle">Choose a language</string>
+    <string name="pref_selectLang_default">EN</string>
+    <string name="pref_LangCat_title">Language</string>
+    <string name="pref_profileSettings_title">Voice Profile</string>
+    <string name="title_generalSettings">General Settings</string>
+    <string name="pref_selectProfile_title">Choose voice profile</string>
+    <string name="pref_selectProfile_dilTitle">Select a voice  profile</string>
+    <string name="pref_selecProfile_default">android</string>
+    <string name="menu_quick_view">Quick View</string>
+    <string name="menu_alert_preferences">Alert preferences</string>
+    <string name="menu_monitors">Monitors</string>
+    <string name="menu_actors">Actors</string>
+    <string name="menu_key_words">Key Words</string>
+    <string name="menu_general_settings">General Settings</string>
+    <string name="menu_load_test_data" translatable="false">Load Test Data</string>
+    <string name="voice_profile">voiceProfile</string>
 
 
 </resources>

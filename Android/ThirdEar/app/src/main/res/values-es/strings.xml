@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Good Ear</string>
+    <string name="menu_actors">Actores</string>
+    <string name="menu_alert_preferences">Preferencias de alertas</string>
+    <string name="menu_general_settings">Configuración general</string>
+    <string name="menu_key_words">Palabras clave</string>
+    <string name="menu_monitors">Monitores</string>
+    <string name="menu_quick_view">Vista rápida</string>
+</resources>

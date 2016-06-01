@@ -57,5 +57,14 @@
         android:layout_marginBottom="34dp"
         android:onClick="closeAlert" />
 
+    <ImageView
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:id="@+id/alert_image"
+        android:background="@null"
+        android:layout_above="@+id/alertMsg"
+        android:layout_alignParentEnd="true"
+        android:layout_marginEnd="42dp" />
+
 
 </RelativeLayout>
