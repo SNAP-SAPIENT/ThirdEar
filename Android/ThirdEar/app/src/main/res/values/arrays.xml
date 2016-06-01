@@ -25,4 +25,15 @@
         <item name="hillary">hillary</item>
         <item name="hareesh">hareesh</item>
     </string-array>
+
+
+    <string-array name="pref_monitor_entries">
+        <item name="keywords">Listen for key words</item>
+        <item name="noiselevel">Listen for noise level</item>
+    </string-array>
+
+    <string-array name="pref_monitor_entriesValues">
+        <item name="keywords">keywords</item>
+        <item name="noiselevel">noiselevel</item>
+    </string-array>
 </resources>

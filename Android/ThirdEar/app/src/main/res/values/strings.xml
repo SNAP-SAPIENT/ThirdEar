@@ -46,6 +46,17 @@
     <string name="menu_general_settings">General Settings</string>
     <string name="menu_load_test_data" translatable="false">Load Test Data</string>
     <string name="voice_profile">voiceProfile</string>
+    <string name="pref_monitorSettings_title">Monitor</string>
+    <string name="pref_monitor_title">Choose what to listen for</string>
+    <string name="pref_monitor_dilTitle">Select what to listen for</string>
+    <string name="pref_monitor_default">keywords</string>
+    <string name="alert_for_keywords">keywords</string>
+    <string name="alert_for_noiseLevel">noiselevel</string>
+    <string name="intent_amp">intent_amp</string>
+    <string name="pref_noiseLevel_title">Choose Noise level</string>
+    <string name="pref_noiseLevel_dilTitle">Enter noise threshold</string>
+    <string name="pref_noiseLevel_default">30.0</string>
+    <string name="sound_filePath">filePath</string>
 
 
 </resources>

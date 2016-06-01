@@ -1,6 +1,7 @@
 package com.snap.thirdear;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.design.widget.NavigationView;
@@ -19,6 +20,7 @@ import android.widget.TextView;
 import com.snap.thirdear.db.DataBaseHelper;
 import com.snap.thirdear.service.BackgroundSpeechRecognizer;
 import com.snap.thirdear.service.BluetoothService;
+import com.snap.thirdear.service.SoundLevelDetector;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -30,13 +32,17 @@ public class MainActivity extends AppCompatActivity
 
     //SQLite DB
     DataBaseHelper dataBaseHelper;
+    private SharedPreferences sharedPref;
+    private String defaultListenFor;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        setUpUI();
         PreferenceManager.setDefaultValues(this, R.xml.preferences, false);
+        sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
+        setUpUI();
+        defaultListenFor = getString(R.string.pref_monitor_default);
     }
 
     private void loadTestData() {
@@ -79,9 +85,12 @@ public class MainActivity extends AppCompatActivity
         startStopBtn.setImageResource(R.drawable.stop);
         startStopText.setText(R.string.started_msg);
         waveImg.setImageResource(R.drawable.soundwave_listening);
-        startService(new Intent(getBaseContext(), BackgroundSpeechRecognizer.class));
+        String listenFor  = sharedPref.getString("pref_monitor", defaultListenFor);
+        if(listenFor.equals(getString(R.string.alert_for_keywords)))
+            startService(new Intent(getBaseContext(), BackgroundSpeechRecognizer.class));
+        else if(listenFor.equals(getString(R.string.alert_for_noiseLevel)))
+            startService(new Intent(getBaseContext(), SoundLevelDetector.class));
         startService(new Intent(getBaseContext(), BluetoothService.class));
-       // startService(new Intent(getBaseContext(), SoundLevelDetector.class));
         // startService(new Intent(getBaseContext(), AudioRecorderService.class));
     }
 
@@ -90,9 +99,12 @@ public class MainActivity extends AppCompatActivity
         startStopText.setText(R.string.stopped_msg);
         startStopBtn.setImageResource(R.drawable.start);
         waveImg.setImageResource(R.drawable.soundwave_quiet);
-        stopService(new Intent(getBaseContext(), BackgroundSpeechRecognizer.class));
+        String listenFor  = sharedPref.getString("pref_monitor", defaultListenFor);
+        if(listenFor.equals(getString(R.string.alert_for_keywords)))
+         stopService(new Intent(getBaseContext(), BackgroundSpeechRecognizer.class));
+        else if(listenFor.equals(getString(R.string.alert_for_noiseLevel)))
+            stopService(new Intent(getBaseContext(), SoundLevelDetector.class));
         stopService(new Intent(getBaseContext(), BluetoothService.class));
-        //stopService(new Intent(getBaseContext(), SoundLevelDetector.class));
         // stopService(new Intent(getBaseContext(), AudioRecorderService.class));
     }
 

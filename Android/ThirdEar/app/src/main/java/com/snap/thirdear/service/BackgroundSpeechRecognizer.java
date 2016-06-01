@@ -216,6 +216,7 @@ public class BackgroundSpeechRecognizer extends Service implements RecognitionLi
         intent.putExtra(getString(R.string.intent_group),group.getName());
         intent.putExtra(getString(R.string.intent_img),group.getIconUrl());
         intent.putExtra(getString(R.string.voice_profile),voiceProfile);
+        intent.putExtra(getString(R.string.alert_for_keywords),getString(R.string.alert_for_keywords));
         startActivity(intent);
     }
 
