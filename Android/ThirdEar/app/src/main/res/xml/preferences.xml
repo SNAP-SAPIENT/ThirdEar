@@ -26,4 +26,27 @@
             android:key="pref_selectProfile"
             android:title="@string/pref_selectProfile_title" />
     </PreferenceCategory>
+
+
+    <PreferenceCategory
+        android:key="pref_general_monitorSettings"
+        android:title="@string/pref_monitorSettings_title">
+
+        <ListPreference
+            android:defaultValue="@string/pref_monitor_default"
+            android:dialogTitle="@string/pref_monitor_dilTitle"
+            android:entries="@array/pref_monitor_entries"
+            android:entryValues="@array/pref_monitor_entriesValues"
+            android:key="pref_monitor"
+            android:title="@string/pref_monitor_title" />
+
+        <EditTextPreference
+            android:defaultValue="@string/pref_noiseLevel_default"
+            android:key="pref_noiseLevel"
+            android:title="@string/pref_noiseLevel_title"
+            android:dialogTitle="@string/pref_noiseLevel_dilTitle"
+            android:inputType="numberDecimal"
+            />
+
+    </PreferenceCategory>
 </PreferenceScreen>
