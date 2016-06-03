@@ -15,14 +15,14 @@
     <string-array name="pref_selectProfile_entries">
         <item name="android">Android</item>
         <item name="mo">Mo</item>
-        <item name="hillary">Hillary</item>
+        <item name="mellin">Mellin</item>
         <item name="hareesh">Hareesh</item>
     </string-array>
 
     <string-array name="pref_selectProfile_entriesValues">
         <item name="android">android</item>
         <item name="mo">mo</item>
-        <item name="hillary">hillary</item>
+        <item name="mellin">mellin</item>
         <item name="hareesh">hareesh</item>
     </string-array>
 

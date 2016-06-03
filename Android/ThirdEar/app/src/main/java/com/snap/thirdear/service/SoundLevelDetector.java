@@ -24,6 +24,7 @@ public class SoundLevelDetector extends Service {
     File audioFile = null;
     private SharedPreferences sharedPref;
     private boolean isBreak;
+    String defaultAndroidProfile;
 
     @Nullable
     @Override
@@ -35,6 +36,7 @@ public class SoundLevelDetector extends Service {
     public void onCreate() {
         super.onCreate();
         sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
+        defaultAndroidProfile = getString(R.string.pref_selecProfile_default);
         recordSound = new Thread(){
             @Override
             public void run() {
@@ -115,42 +117,33 @@ public class SoundLevelDetector extends Service {
 
 
     private void checkNoiseLevel(String filePath){
-        double amp = getAmplitude();
+        int amp = getAmplitude();
         showAlertScreen(amp, filePath);
         Log.d(TAG, "checkNoiseLevel: amp: " +  amp);
     }
 
-    private void showAlertScreen(double amp, String filePath) {
-        String defaultLimit = sharedPref.getString("pref_monitor_default", "40.0");
-        String limitString = sharedPref.getString("pref_noiseLevel", defaultLimit);
-        Double limit = new Double(limitString);
-
-        Double ampDouble = new Double(amp);
-        if(ampDouble.isInfinite() || ampDouble.isNaN()){
-            Log.d(TAG, "showAlertScreen: not valid values");
-        }else if(ampDouble.compareTo(limit) >= 0 ){
+    private void showAlertScreen(int amp, String filePath) {
+        Log.d(TAG, "showAlertScreen: amp: " + amp);
+        int defaultLimit = sharedPref.getInt("pref_monitor_default", 40);
+        int limit = sharedPref.getInt("pref_noiseLevel", defaultLimit);
+        int limitToScale = limit * 1000;
+        String voiceProfile = sharedPref.getString("pref_selectProfile", defaultAndroidProfile);
+        if(amp >= limitToScale){
             destroyThread();
             Intent intent = new Intent(getApplicationContext(), AlertActivity.class);
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-            intent.putExtra(getString(R.string.intent_group), "NoiseLevel");
+            intent.putExtra(getString(R.string.intent_group), "Noise Level");
             intent.putExtra(getString(R.string.intent_img), "alert_emergency");
             intent.putExtra(getString(R.string.sound_filePath), filePath);
-            String ampString = Double.toString(amp);
-            Log.d(TAG, "showAlertScreen: ampString: " + ampString);
-            if (ampString.contains(".")) {
-                String ampSplit = ampString.substring(0,ampString.indexOf("."));
-                Log.d(TAG, "showAlertScreen: ampSplit: " + ampSplit);
-                intent.putExtra(getString(R.string.intent_amp), "Sound level : " + ampSplit);
-            }else{
-                intent.putExtra(getString(R.string.intent_amp), ampString);
-            }
+            intent.putExtra(getString(R.string.intent_amp), Integer.toString(amp));
+            intent.putExtra(getString(R.string.voice_profile),voiceProfile);
             intent.putExtra(getString(R.string.alert_for_keywords), getString(R.string.alert_for_noiseLevel));
             startActivity(intent);
         }
     }
 
-    public double getAmplitude() {
-        double amp = 0;
+    public int getAmplitude() {
+        int amp = 0;
         if (mRecorder != null) {
             /*amp = 20 * Math.log10(mRecorder.getMaxAmplitude() / 2700.0);
             Log.d(TAG, "getAmplitude: before abd: " + amp);
