@@ -36,4 +36,36 @@
         <item name="keywords">keywords</item>
         <item name="noiselevel">noiselevel</item>
     </string-array>
+    <string-array name="pref_noiseLevel_entries">
+        <item name="10">10 dB - Breathing</item>
+        <item name="20">20 dB – Leaves rustling</item>
+        <item name="30">30 dB – Whisper</item>
+        <item name="40">40 dB – Quite library</item>
+        <item name="50">50 dB – Moderate rainfall</item>
+        <item name="60">60 dB – Normal conversation</item>
+        <item name="70">70 dB – Vacuum cleaners</item>
+        <item name="80">80 dB – Alarm clock</item>
+        <item name="90">90 dB – Power tools</item>
+        <item name="100">100 dB – Snowmobile</item>
+        <item name="110">110 dB – Car horn</item>
+        <item name="120">120 dB – Jet plane taking off</item>
+        <item name="130">130 dB – Ambulance siren</item>
+        <item name="140">140 dB – Gun shot</item>
+    </string-array>
+    <string-array name="pref_noiseLevel_entriesValues">
+        <item name="10">10000</item>
+        <item name="20">20000</item>
+        <item name="30">30000</item>
+        <item name="40">40000</item>
+        <item name="50">50000</item>
+        <item name="60">60000</item>
+        <item name="70">70000</item>
+        <item name="80">80000</item>
+        <item name="90">90000</item>
+        <item name="100">100000</item>
+        <item name="110">110000</item>
+        <item name="120">120000</item>
+        <item name="130">130000</item>
+        <item name="140">140000</item>
+    </string-array>
 </resources>

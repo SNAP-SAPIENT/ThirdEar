@@ -124,11 +124,13 @@ public class SoundLevelDetector extends Service {
 
     private void showAlertScreen(int amp, String filePath) {
         Log.d(TAG, "showAlertScreen: amp: " + amp);
-        int defaultLimit = sharedPref.getInt("pref_monitor_default", 40);
-        int limit = sharedPref.getInt("pref_noiseLevel", defaultLimit);
-        int limitToScale = limit * 1000;
+        String defaultLimit = sharedPref.getString("pref_noiseLevel_default", "40000");
+        Log.d(TAG, "showAlertScreen: defaultLimit: " + defaultLimit);
+        String selectedLimit = sharedPref.getString("pref_noiseLevel", defaultLimit);
+        int limit = Integer.parseInt(selectedLimit);
+        Log.d(TAG, "showAlertScreen: limit: " + limit);
         String voiceProfile = sharedPref.getString("pref_selectProfile", defaultAndroidProfile);
-        if(amp >= limitToScale){
+        if(amp >= limit){
             destroyThread();
             Intent intent = new Intent(getApplicationContext(), AlertActivity.class);
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
