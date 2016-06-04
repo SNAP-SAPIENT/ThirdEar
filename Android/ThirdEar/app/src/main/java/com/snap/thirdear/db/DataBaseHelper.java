@@ -182,6 +182,7 @@ public class DataBaseHelper extends SQLiteOpenHelper {
             triggers.clear();
             triggers.add(new Trigger(Trigger.TYPE.SENSOR, "Front door open"));
             triggers.add(new Trigger(Trigger.TYPE.SENSOR, "Home Security Integration"));
+            triggers.add(new Trigger(Trigger.TYPE.SENSOR, "Safe"));
             insertGroupAndTrigger(db, new Groups("security_alert", 1, 1, 1, 1, 1, 1, 1, "Security alert", "Security"), triggers);
             triggers.clear();
             triggers.add(new Trigger(Trigger.TYPE.WORDS, "Help"));
@@ -207,7 +208,8 @@ public class DataBaseHelper extends SQLiteOpenHelper {
             triggers.add(new Trigger(Trigger.TYPE.SOUND, "Door Bell"));
             triggers.add(new Trigger(Trigger.TYPE.SOUND, "Knocking on door"));
             triggers.add(new Trigger(Trigger.TYPE.SOUND, "Dryer finished"));
-            insertGroupAndTrigger(db, new Groups("alert", 1, 1, 1, 1, 1, 1, 1, "Notification alert", "Notification"), triggers);
+            triggers.add(new Trigger(Trigger.TYPE.WORDS, "Notification"));
+            insertGroupAndTrigger(db, new Groups("alert", 1, 1, 1, 1, 1, 1, 1, "Notification alert", "General Notification"), triggers);
             triggers.clear();
             triggers.add(new Trigger(Trigger.TYPE.WORDS, "Food"));
             triggers.add(new Trigger(Trigger.TYPE.WORDS, "Candy"));
@@ -216,7 +218,8 @@ public class DataBaseHelper extends SQLiteOpenHelper {
             triggers.add(new Trigger(Trigger.TYPE.WORDS, "Grandma"));
             insertGroupAndTrigger(db, new Groups("alert", 1, 1, 1, 1, 1, 1, 1, "Alerts added by you", "Added By Me"), triggers);
             triggers.clear();
-            insertGroupAndTrigger(db, new Groups("alert", 1, 1, 1, 1, 1, 1, 1, "Noise level alert", "Noise"), triggers);
+            triggers.add(new Trigger(Trigger.TYPE.WORDS, "Noise"));
+            insertGroupAndTrigger(db, new Groups("alert", 1, 1, 1, 1, 1, 1, 1, "Noise level alert", "Noise Level"), triggers);
             db.setTransactionSuccessful();
         } catch (SQLException e) {
         } finally {
