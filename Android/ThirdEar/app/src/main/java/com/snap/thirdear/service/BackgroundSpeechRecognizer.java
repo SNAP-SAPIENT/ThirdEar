@@ -281,25 +281,7 @@ public class BackgroundSpeechRecognizer extends Service implements RecognitionLi
                         e.printStackTrace();
                     }
                     turnOff();
-                    /*new Handler().postDelayed(new Runnable() {
-                        @Override
-                        public void run() {
-                            turnOff();
-                        }
-                    }, 1000);
-                    new Handler().postDelayed(new Runnable() {
-                        @Override
-                        public void run() {
-                            turnOn();
-                        }
-                    }, 1000);*/
                 }
-                /*new Handler().postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        turnOff();
-                    }
-                }, 1000);*/
             }
         }).start();
 
