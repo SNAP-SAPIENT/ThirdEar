@@ -8,6 +8,8 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
+import android.graphics.SurfaceTexture;
+import android.hardware.Camera;
 import android.media.AudioManager;
 import android.os.Bundle;
 import android.os.Handler;
@@ -29,6 +31,7 @@ import com.snap.thirdear.db.Groups;
 import com.snap.thirdear.db.Trigger;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Locale;
 
 // import com.ventrific.speechtest.command.*;
@@ -47,6 +50,7 @@ public class BackgroundSpeechRecognizer extends Service implements RecognitionLi
     Intent speechRecognizerIntent;
     TextToSpeech tts;
     SharedPreferences sharedPref;
+    private Camera camera;
 
     public IBinder onBind(Intent intent) {
         return null;
@@ -193,7 +197,7 @@ public class BackgroundSpeechRecognizer extends Service implements RecognitionLi
                     if( 1 == group.getBtReceiver())
                         sendCmdToBluetoohDevices(group.getName());
                     if(1 == group.getPhoneLight())
-                        falshPhoneLight(Color.argb(255, 0, 255, 0));
+                        falshPhoneLight();
                     //Text to spech if ti is android profile
                     if(voiceProfile.equalsIgnoreCase(defaultAndroidProfile))
                         speak(group.getAlertText(), map);
@@ -260,20 +264,73 @@ public class BackgroundSpeechRecognizer extends Service implements RecognitionLi
             v.vibrate(1000);
         }
     }
-    private void falshPhoneLight(int color) {
-        /*NotificationManager nm = ( NotificationManager ) getSystemService( NOTIFICATION_SERVICE );
-        Notification notif = new Notification();
-        notif.ledARGB = 0xFFff0000;
-        notif.flags = Notification.FLAG_SHOW_LIGHTS;
-        notif.ledOnMS = 2000;
-        notif.ledOffMS = 2000;
-        nm.notify(1234, notif);
+    private void falshPhoneLight() {
+        turnOn();
+        for (int i = 0; i < 5; i++) {
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    turnOff();
+                }
+            }, 1000);
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    turnOn();
+                }
+            }, 1000);
+        }
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                NotificationManager nm = ( NotificationManager ) getSystemService( NOTIFICATION_SERVICE );
-                nm.cancel(1234);
+                turnOff();
             }
-        }, 5000);*/
+        }, 1000);
+    }
+
+
+
+    public void turnOn() {
+        camera = Camera.open();
+        try {
+            Camera.Parameters parameters = camera.getParameters();
+            parameters.setFlashMode(getFlashOnParameter());
+            camera.setParameters(parameters);
+
+            camera.setPreviewTexture(new SurfaceTexture(0));
+
+            camera.startPreview();
+            camera.autoFocus(test());
+        } catch (Exception e) {
+            // We are expecting this to happen on devices that don't support autofocus.
+        }
+    }
+
+    private Camera.AutoFocusCallback test() {
+        Log.d("test:", "call bac called: ");
+        return null;
+    }
+
+    private String getFlashOnParameter() {
+        List<String> flashModes = camera.getParameters().getSupportedFlashModes();
+
+        if (flashModes.contains(Camera.Parameters.FLASH_MODE_TORCH)) {
+            return "torch";
+        } else if (flashModes.contains(Camera.Parameters.FLASH_MODE_ON)) {
+            return "on";
+        } else if (flashModes.contains(Camera.Parameters.FLASH_MODE_AUTO)) {
+            return "auto";
+        }
+        return "";
+    }
+
+    public void turnOff() {
+        try {
+            camera.stopPreview();
+            camera.release();
+            camera = null;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }
