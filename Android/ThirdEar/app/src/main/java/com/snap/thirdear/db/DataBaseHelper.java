@@ -169,20 +169,57 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase();
         try {
             db.beginTransaction();
-
-            //first 1
-            Groups group = new Groups("emergency_alert", 1, 1, 1, 0, 1, 1, 1, "Disaster alert", "Disaster");
-            Trigger trigger = new Trigger("WORDS", "help");
-            insertGroupAndTrigger(db, group, trigger);
-            //group 2
-            Groups group1 = new Groups("security_alert", 1, 1, 1, 0, 1, 1, 1, "security alert", "Security");
-            Trigger trigger1 = new Trigger("WORDS", "run");
-            insertGroupAndTrigger(db, group1, trigger1);
-            //group 3
-            Groups group2 = new Groups("emergency_alert", 1, 1, 1, 0, 1, 1, 1, "Greeting detected", "Greeting");
-            Trigger trigger2 = new Trigger("WORDS", "hello");
-            insertGroupAndTrigger(db, group2, trigger2);
-
+            List<Trigger> triggers = new ArrayList<>();
+            triggers.add(new Trigger(Trigger.TYPE.SENSOR, "Fire sensor"));
+            triggers.add(new Trigger(Trigger.TYPE.SENSOR, "Flood sensor"));
+            triggers.add(new Trigger(Trigger.TYPE.SENSOR, "Earthquake sensor"));
+            triggers.add(new Trigger(Trigger.TYPE.SENSOR, "Smoke sensor"));
+            triggers.add(new Trigger(Trigger.TYPE.SENSOR, "Extreme alerts"));
+            triggers.add(new Trigger(Trigger.TYPE.SENSOR, "Severe alerts"));
+            triggers.add(new Trigger(Trigger.TYPE.SENSOR, "AMBER Alert"));
+            triggers.add(new Trigger(Trigger.TYPE.WORDS, "Fire"));
+            insertGroupAndTrigger(db, new Groups("emergency_alert", 1, 1, 1, 1, 1, 1, 1, "Disaster alert", "Disaster"), triggers);
+            triggers.clear();
+            triggers.add(new Trigger(Trigger.TYPE.SENSOR, "Front door open"));
+            triggers.add(new Trigger(Trigger.TYPE.SENSOR, "Home Security Integration"));
+            triggers.add(new Trigger(Trigger.TYPE.SENSOR, "Safe"));
+            insertGroupAndTrigger(db, new Groups("security_alert", 1, 1, 1, 1, 1, 1, 1, "Security alert", "Security"), triggers);
+            triggers.clear();
+            triggers.add(new Trigger(Trigger.TYPE.WORDS, "Help"));
+            triggers.add(new Trigger(Trigger.TYPE.WORDS, "Mommy"));
+            triggers.add(new Trigger(Trigger.TYPE.WORDS, "Daddy"));
+            triggers.add(new Trigger(Trigger.TYPE.WORDS, "Dad"));
+            triggers.add(new Trigger(Trigger.TYPE.WORDS, "sissy"));
+            triggers.add(new Trigger(Trigger.TYPE.WORDS, "Big boy"));
+            triggers.add(new Trigger(Trigger.TYPE.WORDS, "Lexi"));
+            triggers.add(new Trigger(Trigger.TYPE.WORDS, "Jenny"));
+            triggers.add(new Trigger(Trigger.TYPE.WORDS, "Andy"));
+            triggers.add(new Trigger(Trigger.TYPE.WORDS, "Stop"));
+            triggers.add(new Trigger(Trigger.TYPE.WORDS, "ouch"));
+            triggers.add(new Trigger(Trigger.TYPE.WORDS, "Blood"));
+            triggers.add(new Trigger(Trigger.TYPE.WORDS, "Bleeding"));
+            triggers.add(new Trigger(Trigger.TYPE.WORDS, "Boo boo"));
+            triggers.add(new Trigger(Trigger.TYPE.WORDS, "Boo"));
+            insertGroupAndTrigger(db, new Groups("alert_injury", 1, 1, 1, 1, 1, 1, 1, "Injury alert", "Injury"), triggers);
+            triggers.clear();
+            triggers.add(new Trigger(Trigger.TYPE.SOUND, "Glass breaking"));
+            insertGroupAndTrigger(db, new Groups("alert", 1, 1, 1, 1, 1, 1, 1, "Breakage alert", "Breakage"), triggers);
+            triggers.clear();
+            triggers.add(new Trigger(Trigger.TYPE.SOUND, "Door Bell"));
+            triggers.add(new Trigger(Trigger.TYPE.SOUND, "Knocking on door"));
+            triggers.add(new Trigger(Trigger.TYPE.SOUND, "Dryer finished"));
+            triggers.add(new Trigger(Trigger.TYPE.WORDS, "Notification"));
+            insertGroupAndTrigger(db, new Groups("alert", 1, 1, 1, 1, 1, 1, 1, "Notification alert", "General Notification"), triggers);
+            triggers.clear();
+            triggers.add(new Trigger(Trigger.TYPE.WORDS, "Food"));
+            triggers.add(new Trigger(Trigger.TYPE.WORDS, "Candy"));
+            triggers.add(new Trigger(Trigger.TYPE.WORDS, "Fun"));
+            triggers.add(new Trigger(Trigger.TYPE.WORDS, "Good ear"));
+            triggers.add(new Trigger(Trigger.TYPE.WORDS, "Grandma"));
+            insertGroupAndTrigger(db, new Groups("alert", 1, 1, 1, 1, 1, 1, 1, "Alerts added by you", "Added By Me"), triggers);
+            triggers.clear();
+            triggers.add(new Trigger(Trigger.TYPE.WORDS, "Noise"));
+            insertGroupAndTrigger(db, new Groups("alert", 1, 1, 1, 1, 1, 1, 1, "Noise level alert", "Noise Level"), triggers);
             db.setTransactionSuccessful();
         } catch (SQLException e) {
         } finally {
@@ -191,10 +228,12 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         Log.d("DataBaseHelper loadData", "done inserting data...");
     }
 
-    private void insertGroupAndTrigger(SQLiteDatabase db, Groups group, Trigger trigger) {
+    private void insertGroupAndTrigger(SQLiteDatabase db, Groups group, List<Trigger> triggers) {
         long groupId = addGroup(group, db);
-        trigger.setGroupsId(groupId);
-        addTrigger(trigger, db);
+        for (Trigger t:triggers) {
+            t.setGroupsId(groupId);
+            addTrigger(t, db);
+        }
     }
 
     public Trigger getTriggerByText(String text) {
@@ -209,7 +248,7 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         if (null == trigger) {
             String[] wordArray = text.split(" ");
             for (String word : wordArray) {
-                String processedWord = DatabaseUtils.sqlEscapeString("%" + word + "%");
+                String processedWord = DatabaseUtils.sqlEscapeString(word);
                 trigger = queryTriggerTable(processedWord, db);
                 //stop on first match
                 if (null != trigger) {
@@ -233,7 +272,8 @@ public class DataBaseHelper extends SQLiteOpenHelper {
                 .append(TABLE_TWO_COL_1).append(",").append(TABLE_TWO_COL_2)
                 .append(",").append(TABLE_TWO_COL_3).append(",").append(TABLE_TWO_COL_4)
                 .append(" FROM ").append(TABLE_TWO_NAME).append(" WHERE ")
-                .append(TABLE_TWO_COL_4).append(" like ").append(searchText);
+                .append(TABLE_TWO_COL_3).append(" = \"").append(Trigger.TYPE.WORDS).append("\"")
+                .append(" AND ").append(TABLE_TWO_COL_4).append(" like ").append(searchText);
         Log.d("TriggerByText Query ", selectQuery.toString());
         Cursor cursor = db.rawQuery(selectQuery.toString(), null);
         if (cursor != null && cursor.moveToFirst()) {
@@ -337,7 +377,7 @@ public class DataBaseHelper extends SQLiteOpenHelper {
 
     public void insertTrigger(long id, String text) {
         SQLiteDatabase db = this.getWritableDatabase();
-        Trigger triggerTwo = new Trigger(id, "WORDS", text);
+        Trigger triggerTwo = new Trigger(id, Trigger.TYPE.WORDS, text);
         Long result = addTrigger(triggerTwo, db);
         Log.d("insertTrigger", "_ID= " + result);
     }

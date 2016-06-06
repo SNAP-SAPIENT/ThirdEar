@@ -16,6 +16,7 @@ import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.snap.thirdear.db.DataBaseHelper;
 import com.snap.thirdear.service.BackgroundSpeechRecognizer;
@@ -43,6 +44,12 @@ public class MainActivity extends AppCompatActivity
         sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
         setUpUI();
         defaultListenFor = getString(R.string.pref_monitor_default);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+//        Toast.makeText(MainActivity.this, "onResume", Toast.LENGTH_SHORT).show();
     }
 
     private void loadTestData() {
