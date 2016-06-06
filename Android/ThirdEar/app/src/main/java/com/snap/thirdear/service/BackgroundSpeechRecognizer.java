@@ -41,6 +41,7 @@ public class BackgroundSpeechRecognizer extends Service implements RecognitionLi
     public static final String RESULT = "result";
     public static final String NOTIFICATION = "com.ventrific.receiver";
     public boolean triggerWordSpoken = false;
+    public static int onOff = 1;
     private BluetoothService bluetoothService;
     private DataBaseHelper dataBaseHelper;
     SQLiteDatabase db;
@@ -63,6 +64,7 @@ public class BackgroundSpeechRecognizer extends Service implements RecognitionLi
 */
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
+        BackgroundSpeechRecognizer.onOff = 2;
         sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
         //Toast.makeText(this, "Service Started", Toast.LENGTH_LONG).show();
         //cleanup
@@ -115,6 +117,7 @@ public class BackgroundSpeechRecognizer extends Service implements RecognitionLi
         if (db != null){
             db.close();
         }
+        BackgroundSpeechRecognizer.onOff = 1;
         super.onDestroy();
     }
 
@@ -273,10 +276,10 @@ public class BackgroundSpeechRecognizer extends Service implements RecognitionLi
         new Thread(new Runnable() {
             @Override
             public void run() {
-                for (int i = 0; i < 5; i++) {
+                for (int i = 0; i < 3; i++) {
                     turnOn();
                     try {
-                        Thread.sleep(1000);
+                        Thread.sleep(100);
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }

@@ -56,11 +56,6 @@
             android:screenOrientation="portrait"
             android:noHistory="true">
         </activity>
-        <activity android:name=".QuickViewActivity"
-            android:label="@string/title_quickview"
-            android:screenOrientation="portrait"
-            android:noHistory="true">
-        </activity>
         <activity android:name=".AlertPreferencesActivity"
             android:label="@string/title_alertPreferences"
             android:screenOrientation="portrait"

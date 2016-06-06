@@ -182,7 +182,7 @@ public class DataBaseHelper extends SQLiteOpenHelper {
             triggers.clear();
             triggers.add(new Trigger(Trigger.TYPE.SENSOR, "Front door open"));
             triggers.add(new Trigger(Trigger.TYPE.SENSOR, "Home Security Integration"));
-            triggers.add(new Trigger(Trigger.TYPE.SENSOR, "Safe"));
+            triggers.add(new Trigger(Trigger.TYPE.WORDS, "Safe"));
             insertGroupAndTrigger(db, new Groups("security_alert", 1, 1, 1, 1, 1, 1, 1, "Security alert", "Security"), triggers);
             triggers.clear();
             triggers.add(new Trigger(Trigger.TYPE.WORDS, "Help"));
@@ -202,7 +202,7 @@ public class DataBaseHelper extends SQLiteOpenHelper {
             triggers.add(new Trigger(Trigger.TYPE.WORDS, "Boo"));
             insertGroupAndTrigger(db, new Groups("alert_injury", 1, 1, 1, 1, 1, 1, 1, "Injury alert", "Injury"), triggers);
             triggers.clear();
-            triggers.add(new Trigger(Trigger.TYPE.SOUND, "Glass breaking"));
+            triggers.add(new Trigger(Trigger.TYPE.WORDS, "Glass"));
             insertGroupAndTrigger(db, new Groups("alert", 1, 1, 1, 1, 1, 1, 1, "Breakage alert", "Breakage"), triggers);
             triggers.clear();
             triggers.add(new Trigger(Trigger.TYPE.SOUND, "Door Bell"));
@@ -240,7 +240,7 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         Log.d("TriggerByText text ", text);
         Trigger trigger = null;
         SQLiteDatabase db = this.getWritableDatabase();
-        String fullText = "%" + text + "%";
+        String fullText = text;
         String sentence = DatabaseUtils.sqlEscapeString(fullText);
         //try to match full sentence
         trigger = queryTriggerTable(sentence, db);

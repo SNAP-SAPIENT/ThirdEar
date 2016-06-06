@@ -6,7 +6,7 @@
 
     <string name="action_settings">Settings</string>
     <string name="nav_subtext">SNAP project</string>
-    <string name="nav_title">Third Ear</string>
+    <string name="nav_title">Good Ear</string>
 
 
     <string name="navigation_drawer_open">Open navigation drawer</string>
@@ -57,6 +57,7 @@
     <string name="pref_noiseLevel_dilTitle">Select noise threshold</string>
     <string name="pref_noiseLevel_default">40000</string>
     <string name="sound_filePath">filePath</string>
+
 
 
 </resources>
