@@ -60,13 +60,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     }
 
     private void settingsFragment(){
-        stopListeningServices();
+        //stopListeningServices();
         Intent intent = new Intent(this, GeneralSettingsActivity.class);
         startActivity(intent);
     }
 
     private void alertPreferences() {
-        stopListeningServices();
+       // stopListeningServices();
         Intent intent = new Intent(this, AlertPreferencesActivity.class);
         startActivity(intent);
     }

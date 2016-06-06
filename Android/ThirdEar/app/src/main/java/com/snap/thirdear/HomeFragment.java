@@ -54,10 +54,19 @@ public class HomeFragment extends Fragment {
     }
 
     public void appControl(View view) {
-        if ( 0 == BackgroundSpeechRecognizer.onOff || 1 == BackgroundSpeechRecognizer.onOff){
-            startListening();
-        }else{
-            stopListening();
+        String listenFor  = sharedPref.getString("pref_monitor", defaultListenFor);
+        if(listenFor.equals(getString(R.string.alert_for_keywords))) {
+            if (0 == BackgroundSpeechRecognizer.onOff || 1 == BackgroundSpeechRecognizer.onOff) {
+                startListening();
+            } else {
+                stopListening();
+            }
+        }else if(listenFor.equals(getString(R.string.alert_for_noiseLevel))){
+            if ( 0 == SoundLevelDetector.onOff || 1 == SoundLevelDetector.onOff) {
+                startListening();
+            } else {
+                stopListening();
+            }
         }
     }
 

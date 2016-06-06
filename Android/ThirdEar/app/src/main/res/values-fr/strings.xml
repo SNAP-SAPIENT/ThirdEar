@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Good Ear</string>
+    <string name="app_name">Third Ear</string>
     <string name="menu_actors">Acteurs</string>
     <string name="menu_alert_preferences">Préférences d\'alerte</string>
     <string name="menu_general_settings">Réglages généraux</string>

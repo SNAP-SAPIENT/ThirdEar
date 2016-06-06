@@ -202,7 +202,7 @@ public class BackgroundSpeechRecognizer extends Service implements RecognitionLi
                         sendCmdToBluetoohDevices(group.getName());
                     if(1 == group.getPhoneLight()) {
                         flashPhoneLight();
-                        flashScreen();
+                       // flashScreen();
                     }
                     //Text to spech if ti is android profile
                     if(voiceProfile.equalsIgnoreCase(defaultAndroidProfile))

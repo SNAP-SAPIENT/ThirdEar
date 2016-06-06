@@ -53,19 +53,19 @@
         <item name="140">140 dB – Gun shot</item>
     </string-array>
     <string-array name="pref_noiseLevel_entriesValues">
-        <item name="10">10000</item>
-        <item name="20">20000</item>
-        <item name="30">30000</item>
-        <item name="40">40000</item>
-        <item name="50">50000</item>
-        <item name="60">60000</item>
-        <item name="70">70000</item>
-        <item name="80">80000</item>
-        <item name="90">90000</item>
-        <item name="100">100000</item>
-        <item name="110">110000</item>
-        <item name="120">120000</item>
-        <item name="130">130000</item>
-        <item name="140">140000</item>
+        <item name="10">1000</item>
+        <item name="20">5000</item>
+        <item name="30">10000</item>
+        <item name="40">15000</item>
+        <item name="50">20000</item>
+        <item name="60">25000</item>
+        <item name="70">30000</item>
+        <item name="80">35000</item>
+        <item name="90">40000</item>
+        <item name="100">45000</item>
+        <item name="110">50000</item>
+        <item name="120">60000</item>
+        <item name="130">70000</item>
+        <item name="140">80000</item>
     </string-array>
 </resources>
