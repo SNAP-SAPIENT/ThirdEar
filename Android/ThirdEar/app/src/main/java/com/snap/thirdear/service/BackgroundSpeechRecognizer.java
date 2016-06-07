@@ -56,6 +56,11 @@ public class BackgroundSpeechRecognizer extends Service implements RecognitionLi
         return null;
     }
 
+  /*  @Override
+    public void onStart(Intent intent, int startId) {
+        super.onStart(intent, startId);
+    }
+*/
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
@@ -197,7 +202,7 @@ public class BackgroundSpeechRecognizer extends Service implements RecognitionLi
                     if( 1 == group.getBtReceiver())
                         sendCmdToBluetoohDevices(group.getName());
                     if(1 == group.getPhoneLight())
-                        falshPhoneLight();
+                        flashPhoneLight();
                     //Text to spech if ti is android profile
                     if(voiceProfile.equalsIgnoreCase(defaultAndroidProfile))
                         speak(group.getAlertText(), map);
@@ -264,28 +269,22 @@ public class BackgroundSpeechRecognizer extends Service implements RecognitionLi
             v.vibrate(1000);
         }
     }
-    private void falshPhoneLight() {
-        turnOn();
-        for (int i = 0; i < 5; i++) {
-            new Handler().postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    turnOff();
-                }
-            }, 1000);
-            new Handler().postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    turnOn();
-                }
-            }, 1000);
-        }
-        new Handler().postDelayed(new Runnable() {
+    private void flashPhoneLight() {
+        new Thread(new Runnable() {
             @Override
             public void run() {
-                turnOff();
+                for (int i = 0; i < 5; i++) {
+                    turnOn();
+                    try {
+                        Thread.sleep(1000);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                    turnOff();
+                }
             }
-        }, 1000);
+        }).start();
+
     }
 
 

@@ -11,18 +11,20 @@ public class Trigger {
 // not for DB column
     private String matchingWord;
 
+    public static enum TYPE {WORDS,SOUND, NOISE, SENSOR}
+
     public Trigger() {
 
     }
 
-    public Trigger(long groupsId, String type, String trigger_text) {
+    public Trigger(long groupsId, TYPE type, String trigger_text) {
         this.groupsId = groupsId;
-        this.type = type;
+        this.type = type.name();
         this.triggerText = trigger_text;
     }
 
-    public Trigger(String type, String trigger_text) {
-        this.type = type;
+    public Trigger(TYPE type, String trigger_text) {
+        this.type = type.name();
         this.triggerText = trigger_text;
     }
 

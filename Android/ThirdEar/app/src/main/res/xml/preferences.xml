@@ -40,13 +40,13 @@
             android:key="pref_monitor"
             android:title="@string/pref_monitor_title" />
 
-        <EditTextPreference
+        <ListPreference
             android:defaultValue="@string/pref_noiseLevel_default"
             android:key="pref_noiseLevel"
             android:title="@string/pref_noiseLevel_title"
             android:dialogTitle="@string/pref_noiseLevel_dilTitle"
-            android:inputType="numberDecimal"
-            />
+            android:entries="@array/pref_noiseLevel_entries"
+            android:entryValues="@array/pref_noiseLevel_entriesValues" />
 
     </PreferenceCategory>
 </PreferenceScreen>

@@ -38,13 +38,13 @@ public class AlertActivity extends AppCompatActivity {
         palyBackBtn = (ImageButton) findViewById(R.id.alert_palyBack_btn);
         Intent intent = getIntent();
         palyBackBtn.setImageResource(R.drawable.playback_grey);
-
+        String voiceProfile = intent.getStringExtra(getString(R.string.voice_profile));
         alertFor= intent.getStringExtra(getString(R.string.alert_for_keywords));
         if(alertFor.equals(getString(R.string.alert_for_keywords))) {
             String group = intent.getStringExtra(getString(R.string.intent_group));
             String trigger = intent.getStringExtra(getString(R.string.intent_trigger));
             String imageName = intent.getStringExtra(getString(R.string.intent_img));
-            String voiceProfile = intent.getStringExtra(getString(R.string.voice_profile));
+
             alertText.setText(trigger);
             int id = getResources().getIdentifier(imageName, "drawable", this.getPackageName());
             Log.d(TAG, "onCreate: img id" + id);
@@ -60,22 +60,20 @@ public class AlertActivity extends AppCompatActivity {
                 palyBackBtn.setImageResource(R.drawable.playback);
             }
             alertText.setText("Noise detected...");
-            alertText.setText(amp);
+            //alertText.setText(amp);
             int id = getResources().getIdentifier(imageName, "drawable", this.getPackageName());
             Log.d(TAG, "onCreate: img id" + id);
             alertImg.setImageResource(id);
-            playSound(R.raw.hareesh_disaster);
+            if (!voiceProfile.equalsIgnoreCase(getString(R.string.pref_selecProfile_default)))
+                playSound(voiceProfile, "Noise Level");
         }
         hide();
     }
 
-    private void playSound(int soundId) {
-        MediaPlayer mediaPlayer = MediaPlayer.create(this, soundId);
-        mediaPlayer.start();
-    }
-
     private void playSound(String voiceProfile, String group) {
-        String sound = voiceProfile+ "_" + group.toLowerCase();
+        group = group.toLowerCase();
+        group = group.replace(" ", "");
+        String sound = voiceProfile+ "_" + group;
         Log.d(TAG, "playSound: sound: " + sound);
         int id = getResources().getIdentifier(sound, "raw", this.getPackageName());
         Log.d(TAG, "playSound: sound id: " + id);
