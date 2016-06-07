@@ -127,7 +127,7 @@ public class SoundLevelDetector extends Service {
 
     private void showAlertScreen(int amp, String filePath) {
         Log.d(TAG, "showAlertScreen: amp: " + amp);
-        String defaultLimit = sharedPref.getString("pref_noiseLevel_default", "40000");
+        String defaultLimit = sharedPref.getString("pref_noiseLevel_default", "20900");
         Log.d(TAG, "showAlertScreen: defaultLimit: " + defaultLimit);
         String selectedLimit = sharedPref.getString("pref_noiseLevel", defaultLimit);
         int limit = Integer.parseInt(selectedLimit);
