@@ -1,28 +1,24 @@
 package com.snap.thirdear.service;
 
-import android.app.Notification;
-import android.app.NotificationManager;
 import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.sqlite.SQLiteDatabase;
-import android.graphics.Color;
 import android.graphics.SurfaceTexture;
 import android.hardware.Camera;
 import android.media.AudioManager;
 import android.os.Bundle;
-import android.os.Handler;
 import android.os.IBinder;
 import android.os.Vibrator;
 import android.preference.PreferenceManager;
+import android.provider.Settings;
 import android.speech.RecognitionListener;
 import android.speech.RecognizerIntent;
 import android.speech.SpeechRecognizer;
 import android.speech.tts.TextToSpeech;
 import android.support.annotation.NonNull;
 import android.util.Log;
-import android.widget.Toast;
 
 import com.snap.thirdear.AlertActivity;
 import com.snap.thirdear.R;
@@ -41,6 +37,7 @@ public class BackgroundSpeechRecognizer extends Service implements RecognitionLi
     public static final String RESULT = "result";
     public static final String NOTIFICATION = "com.ventrific.receiver";
     public boolean triggerWordSpoken = false;
+    public static int onOff = 1;
     private BluetoothService bluetoothService;
     private DataBaseHelper dataBaseHelper;
     SQLiteDatabase db;
@@ -63,6 +60,7 @@ public class BackgroundSpeechRecognizer extends Service implements RecognitionLi
 */
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
+        BackgroundSpeechRecognizer.onOff = 2;
         sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
         //Toast.makeText(this, "Service Started", Toast.LENGTH_LONG).show();
         //cleanup
@@ -115,6 +113,7 @@ public class BackgroundSpeechRecognizer extends Service implements RecognitionLi
         if (db != null){
             db.close();
         }
+        BackgroundSpeechRecognizer.onOff = 1;
         super.onDestroy();
     }
 
@@ -201,8 +200,10 @@ public class BackgroundSpeechRecognizer extends Service implements RecognitionLi
                         alertVibrate(1);
                     if( 1 == group.getBtReceiver())
                         sendCmdToBluetoohDevices(group.getName());
-                    if(1 == group.getPhoneLight())
+                    if(1 == group.getPhoneLight()) {
                         flashPhoneLight();
+                       // flashScreen();
+                    }
                     //Text to spech if ti is android profile
                     if(voiceProfile.equalsIgnoreCase(defaultAndroidProfile))
                         speak(group.getAlertText(), map);
@@ -273,10 +274,11 @@ public class BackgroundSpeechRecognizer extends Service implements RecognitionLi
         new Thread(new Runnable() {
             @Override
             public void run() {
-                for (int i = 0; i < 5; i++) {
+                for (int i = 0; i < 3; i++) {
                     turnOn();
+                    screenBrightness(255);
                     try {
-                        Thread.sleep(1000);
+                        Thread.sleep(100);
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
@@ -287,6 +289,38 @@ public class BackgroundSpeechRecognizer extends Service implements RecognitionLi
 
     }
 
+    private void flashScreen() {
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                int currentValue = getScreenBrightness();
+                Log.d("BgRecognizer", "run: current bright:" + currentValue);
+                for (int i = 0; i < 3; i++) {
+                    screenBrightness(255);
+                    try {
+                        Thread.sleep(50);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                    screenBrightness(80);
+                }
+                screenBrightness(currentValue);
+            }
+        }).start();
+
+    }
+
+    public void screenBrightness(int value){
+        Settings.System.putInt(this.getContentResolver(),
+                Settings.System.SCREEN_BRIGHTNESS, value);
+    }
+
+    // Get the screen current brightness
+    protected int getScreenBrightness(){
+        int brightnessValue = Settings.System.getInt(this.getContentResolver(),
+                Settings.System.SCREEN_BRIGHTNESS, 0);
+        return brightnessValue;
+    }
 
 
     public void turnOn() {

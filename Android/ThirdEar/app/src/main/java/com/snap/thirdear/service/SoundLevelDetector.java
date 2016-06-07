@@ -25,6 +25,7 @@ public class SoundLevelDetector extends Service {
     private SharedPreferences sharedPref;
     private boolean isBreak;
     String defaultAndroidProfile;
+    public static int onOff = 1;
 
     @Nullable
     @Override
@@ -71,12 +72,14 @@ public class SoundLevelDetector extends Service {
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
+        SoundLevelDetector.onOff = 2;
         return super.onStartCommand(intent, flags, startId);
     }
 
     @Override
     public void onDestroy() {
         super.onDestroy();
+        SoundLevelDetector.onOff = 1;
         destroyThread();
     }
 
@@ -124,7 +127,7 @@ public class SoundLevelDetector extends Service {
 
     private void showAlertScreen(int amp, String filePath) {
         Log.d(TAG, "showAlertScreen: amp: " + amp);
-        String defaultLimit = sharedPref.getString("pref_noiseLevel_default", "40000");
+        String defaultLimit = sharedPref.getString("pref_noiseLevel_default", "20900");
         Log.d(TAG, "showAlertScreen: defaultLimit: " + defaultLimit);
         String selectedLimit = sharedPref.getString("pref_noiseLevel", defaultLimit);
         int limit = Integer.parseInt(selectedLimit);
