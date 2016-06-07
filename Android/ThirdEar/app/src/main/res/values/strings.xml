@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Good Ear</string>
+    <string name="app_name">Third Ear</string>
 
     <string name="title_activity_alert"></string>
     <string name="title_key_words">Key Words</string>
@@ -55,8 +55,9 @@
     <string name="intent_amp">intent_amp</string>
     <string name="pref_noiseLevel_title">Choose Noise level</string>
     <string name="pref_noiseLevel_dilTitle">Select noise threshold</string>
-    <string name="pref_noiseLevel_default">40000</string>
+    <string name="pref_noiseLevel_default">29000</string>
     <string name="sound_filePath">filePath</string>
+
 
 
 </resources>

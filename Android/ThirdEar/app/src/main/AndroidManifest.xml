@@ -9,6 +9,7 @@
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
     <uses-permission android:name="android.permission.BLUETOOTH" />
     <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
+    <uses-permission android:name="android.permission.WRITE_SETTINGS" />
 
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.FLASHLIGHT"/>
@@ -53,11 +54,6 @@
         </activity>
         <activity android:name=".AddKeyWordActivity"
             android:label="@string/add_key_words"
-            android:screenOrientation="portrait"
-            android:noHistory="true">
-        </activity>
-        <activity android:name=".QuickViewActivity"
-            android:label="@string/title_quickview"
             android:screenOrientation="portrait"
             android:noHistory="true">
         </activity>
